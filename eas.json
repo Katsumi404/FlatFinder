@@ -1,13 +1,18 @@
 {
-    ... 
-    "build": {
-      "production": {
-        "android": {
-          "image": "latest"
-        },
-        "ios": {
-          "image": "latest"
-        }
-      }
-    }
+  "cli": {
+    "version": ">= 7.5.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
   }
+}

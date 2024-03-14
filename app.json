@@ -1,4 +1,11 @@
 {
   "name": "FlatFinder",
-  "displayName": "FlatFinder"
+  "displayName": "FlatFinder",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "fe08e77e-97a1-41b8-b709-31fde84cc368"
+      }
+    }
+  }
 }
