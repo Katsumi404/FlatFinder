@@ -7,7 +7,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "android": {
-        "image": "android-docker-image"
+        "image": "default"
       },
       "ios": {
         "image": "ios-docker-image"
@@ -16,7 +16,7 @@
     "preview": {
       "distribution": "internal",
       "android": {
-        "image": "android-docker-image"
+        "image": "default"
       },
       "ios": {
         "image": "ios-docker-image"
@@ -24,7 +24,7 @@
     },
     "production": {
       "android": {
-        "image": "android-docker-image"
+        "image": "default" 
       },
       "ios": {
         "image": "ios-docker-image"
