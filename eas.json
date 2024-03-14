@@ -3,7 +3,12 @@
     "version": ">= 7.5.0"
   },
   "build": {
-    "image": "custom-docker-image",
+    "android": {
+      "image": "android-docker-image"
+    },
+    "ios": {
+      "image": "ios-docker-image"
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal"
