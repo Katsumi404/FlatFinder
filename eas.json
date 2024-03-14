@@ -3,20 +3,33 @@
     "version": ">= 7.5.0"
   },
   "build": {
-    "android": {
-      "image": "android-docker-image"
-    },
-    "ios": {
-      "image": "ios-docker-image"
-    },
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "image": "android-docker-image"
+      },
+      "ios": {
+        "image": "ios-docker-image"
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "image": "android-docker-image"
+      },
+      "ios": {
+        "image": "ios-docker-image"
+      }
     },
-    "production": {}
+    "production": {
+      "android": {
+        "image": "android-docker-image"
+      },
+      "ios": {
+        "image": "ios-docker-image"
+      }
+    }
   },
   "submit": {
     "production": {}
