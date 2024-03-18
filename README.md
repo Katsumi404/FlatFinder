@@ -10,7 +10,7 @@
 4. On the Expo app on your phone, scan the barcode that comes up in the vsc terminal
 5. Shake your phone to gain access to development tools from your phone
 
-  For further confusion on what to do with these file please look at this tutorial (at time stamps 6:17-9:17 for environment and 12:42-14:38): 
-* https://www.youtube.com/watch?v=0-S5a0eXPoc&list=PLTjRvDozrdlxzQet01qZBt-sRG8bbDggv
-
-  You can also ask questions on the group chat on teams if none of these answer your questions. :)
+  For further confusion:
+* on what to do with these file please look at this tutorial (at time stamps 6:17-9:17 for environment and 12:42-14:38): 
+  * https://www.youtube.com/watch?v=0-S5a0eXPoc&list=PLTjRvDozrdlxzQet01qZBt-sRG8bbDggv
+* You can also ask questions on the group chat on teams if none of these answer your questions. :)
