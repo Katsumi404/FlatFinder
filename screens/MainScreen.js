@@ -2,10 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, Button, View } from 'react-native';
 
 export default function MainScreen() { 
-  const toHome = () => {
-    navigation.navigate('Login');
-  };
-
   return (
     <View style={styles.container}>
       <Text>Main Page</Text>
@@ -21,8 +17,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
-  Button: {
-    padding: 10,
-  }
 });
