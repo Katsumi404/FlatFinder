@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LandingScreen from "./screens/LandingScreen.js";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen.js";
-import MainScreen from "./screens/MainScreen";
+import MainScreen from "./screens/MainScreen.js";
 
 //creates way to navigate the pages
 const Stack = createNativeStackNavigator();
