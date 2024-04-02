@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 
 export default function LoginScreen() {
- 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   
   const handleLogin = () => {
     // Here, you would put your login logic or navigation to home screen after successful login
