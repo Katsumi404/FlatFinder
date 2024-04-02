@@ -1,0 +1,7 @@
+CREATE TABLE savedListing (
+    UserId INTEGER NOT NULL,
+    FlatId INTEGER NOT NULL,
+    PRIMARY KEY (UserId, FlatId),
+    CONSTRAINT fk_User FOREIGN KEY (UserId) REFERENCES user(Id),
+    CONSTRAINT fk_Flat FOREIGN KEY (FlatId) REFERENCES flat(Id)
+);

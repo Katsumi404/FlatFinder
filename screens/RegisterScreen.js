@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, ScrollView } from 'react-native';
+import { TextInput, Button, StyleSheet, Text, ScrollView } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -9,12 +10,24 @@ export default function RegisterScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [dietaryRestrictions, setDietaryRestrictions] = useState('');
   const [smokingPreference, setSmokingPreference] = useState('');
   const [petPreference, setPetPreference] = useState('');
 
-  const handleRegistration = () => {
+  const handleDateChange = (event, newDate) => {
+    if (event.type === 'set' && newDate !== undefined) {
+      setDateOfBirth(newDate); // Convert Date object to ISO string
+    }
+    setShowDatePicker(false); // Close the DateTimePicker regardless of selection
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const registerUser = () => {
     alert('Registration submitted');
   };
 
@@ -34,7 +47,11 @@ export default function RegisterScreen() {
       <TextInput placeholder="Confirm Password" value={confirmPassword} onChangeText={setConfirmPassword} style={styles.input} secureTextEntry={true} />
       
       <Text style={styles.header}>Profile</Text>
-      <TextInput placeholder="Date of Birth" value={dateOfBirth} onChangeText={setDateOfBirth} style={styles.input} />
+      <TextInput placeholder="Date of Birth" value={formatDate(dateOfBirth)} onChangeText={setDateOfBirth} style={styles.input} />
+      <Button title="Select Date" onPress={showDatepicker}/>
+      {showDatePicker && (
+        <DateTimePicker value={dateOfBirth} mode="date" display="default" onChange={handleDateChange} />
+      )}
       <TextInput placeholder="Dietary Restrictions/Preferences" value={dietaryRestrictions} onChangeText={setDietaryRestrictions} style={styles.input} />
       <TextInput placeholder="Smoking or Non-smoking" value={smokingPreference} onChangeText={setSmokingPreference} style={styles.input} />
       <TextInput placeholder="Pets or No Pets" value={petPreference} onChangeText={setPetPreference} style={styles.input} />

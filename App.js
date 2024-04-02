@@ -7,8 +7,13 @@ import LandingScreen from "./screens/LandingScreen.js";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen.js";
 import MainScreen from "./screens/MainScreen.js";
+//Imports database fetching method
+import { CreateDatabase } from './database/CreateDatabase.js';
+import { InsertData } from './database/InsertData.js';
+CreateDatabase();
+InsertData();
 
-//creates way to navigate the pages
+//Creates way to navigate the pages
 const Stack = createNativeStackNavigator();
 
 export default function App() {
