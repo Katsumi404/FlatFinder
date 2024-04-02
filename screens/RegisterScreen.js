@@ -27,7 +27,16 @@ export default function RegisterScreen() {
     setShowDatePicker(true);
   };
 
-  const registerUser = () => {
+  function formatDate(date) {// Get day, month, and year components from the date
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+  
+    // Format the date as "dd-mm-yyyy"
+    return `${day}-${month}-${year}`;
+  }
+
+  const handleRegistration = () => {
     alert('Registration submitted');
   };
 
