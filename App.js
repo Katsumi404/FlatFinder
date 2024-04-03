@@ -192,7 +192,7 @@ export default function App() {
               const { street, city, postcode } = address;
               tx.executeSql(
                 'INSERT INTO address_ (Street, City, Postcode) VALUES (?, ?, ?)',
-                street, city, postcode,
+                [street, city, postcode],
                 (_, resultSet) => {
                   console.log(`Address inserted with ID: ${resultSet.insertId}`);
                 },
