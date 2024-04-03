@@ -252,20 +252,16 @@ export default function App() {
   if (loading) {
     // If loading is true, render the LandingScreen
     return (
-      <LandingScreen />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Landing" component={LandingScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Main" component={MainScreen} />
+          <Stack.Screen name="MatchmakingScreen" component={MatchmakingScreen} />
+          <Stack.Screen name="UtilitiesScreen" component={UtilitiesScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" component={LandingScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Main" component={MainScreen} />
-        <Stack.Screen name="MatchmakingScreen" component={MatchmakingScreen} />
-        <Stack.Screen name="UtilitiesScreen" component={UtilitiesScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
 }
