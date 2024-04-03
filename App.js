@@ -9,7 +9,7 @@ import LandingScreen from "./screens/LandingScreen.js";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen.js";
 import MainScreen from "./screens/MainScreen.js";
-import MatchmakingScreen from "./screens/MatchmakingScreen.js";
+import MatchmakingScreen from "./screens/Matchmakingscreen.js";
 import UtilitiesScreen from "./screens/UtilitiesScreen.js";
 //Imports database fetching method
 import * as SQLite from 'expo-sqlite';
