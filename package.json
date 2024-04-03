@@ -15,6 +15,7 @@
     "googleServicesFile": "./google-services.json"
   },
   "dependencies": {
+    "@expo/image-utils": "^0.4.1",
     "@react-native-community/datetimepicker": "^7.6.1",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
@@ -29,6 +30,7 @@
     "firebase": "^9.6.11",
     "react": "18.2.0",
     "react-native": "^0.73.6",
+    "semver": "^7.6.0",
     "sqlite": "^5.1.1"
   },
   "devDependencies": {

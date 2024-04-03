@@ -1,7 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 
 class DatabaseManager {
-  constructor() {
+  constructor(db) {
     this.db = SQLite.openDatabase('flatFinder.db');
   }
 
