@@ -17,12 +17,17 @@ export default function LandingScreen({ navigation }) {
   const toRegister = () => {
     navigation.navigate('Register');
   };
+
+  const toSearch = () => {
+    navigation.navigate('Search');
+  };
   
   return (
     <View style={styles.container}>
       <Text>Welcome to the FlatFinder Application!</Text>
       <Button title="Login" onPress={toLogin}></Button>
       <Button title="Register" onPress={toRegister}></Button>
+      <Button title="Search" onPress={toSearch}></Button>
       <StatusBar style="auto" />
     </View>
   );
