@@ -8,6 +8,8 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen.js";
 import MainScreen from "./screens/MainScreen.js";
 import SearchScreen from './screens/SearchScreen.js';
+import UtilitiesScreen from './screens/UtilitiesScreen.js';
+import MatchmakingScreen from './screens/MatchmakingScreen.js';
 
 //creates way to navigate the pages
 const Stack = createNativeStackNavigator();
@@ -19,8 +21,10 @@ export default function App() {
         <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Utlilities" component={UtilitiesScreen} />
+        <Stack.Screen name="Matchmaking" component={MatchmakingScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
