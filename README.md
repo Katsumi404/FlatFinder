@@ -6,10 +6,12 @@
   ## To run the app:
 1. Open a new terminal in visual studio code.
 2. Type in `npm install` to get the necessary package dependencies.
-3. Type in `npm install @react-navigation/native` to get the rest of the dependencies
-4. Type in `npm start` to run the application.
-5. On the Expo app on your phone, scan the barcode that comes up in the vsc terminal.
-6. Shake your phone to gain access to development tools from your phone.
+3. Type in `npm install @react-navigation/native` to get the navuigation stack
+4. Type in `npm install @react-native-picker/picker` to get the datepicker component
+5. Type in `npm install firebase` to get the database
+6. Type in `npm start` to run the application.
+7. On the Expo app on your phone, scan the barcode that comes up in the vsc terminal.
+8. Shake your phone to gain access to development tools from your phone.
 
   ## For further confusion:
 * on what to do with these file please look at this tutorial (at time stamps 6:17-9:17 for environment and 12:42-14:38): 
