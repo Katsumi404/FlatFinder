@@ -1,0 +1,6 @@
+CREATE TABLE address_ (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Street VARCHAR(255) NOT NULL,
+    City VARCHAR(100) NOT NULL,
+    Postcode VARCHAR(7) NOT NULL CHECK (Postcode GLOB '[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][A-Z]{2}')
+);

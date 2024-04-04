@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Picker, Modal } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Modal } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 export default function SearchScreen(){
 
