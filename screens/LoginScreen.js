@@ -4,17 +4,42 @@ import { TextInput, Button, Text, ImageBackground } from 'react-native';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
+
+  if (auth.currentUser) {
+    navigation.navigate('Main');
+  } else {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.navigate('Main');
+      }
+    });
+  }
+
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   
   const handleLogin = () => {
-    // Here, you would put your login logic or navigation to home screen after successful login
-    alert('Email: ' + email + ', Password: ' + password);
-    navigation.navigate('Main');
+    if (email !== "" && password !== "") {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          navigation.navigate('Main', { user: userCredential.user });
+          setErrorMessage("");
+          setEmail("");
+          setPassword("");
+        })
+        .catch((error) => {
+          setErrorMessage(error.message)
+        });
+    } else {
+      setErrorMessage("Please enter an email and password");
+    }
   };
 
   const handleForgotPassword = () => {

@@ -3,9 +3,8 @@ import { TextInput, Button, ImageBackground, Text, ScrollView } from 'react-nati
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-const auth = getAuth();
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 export default function RegisterScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
@@ -25,7 +24,7 @@ export default function RegisterScreen({ navigation }) {
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
-        navigation.navigate('Main');
+        navigation.navigate('Main', {user: userCredential.user});
       })
       .catch((error) => {
         setValidationMessage(error.message);
