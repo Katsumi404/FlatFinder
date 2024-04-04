@@ -23,7 +23,8 @@ export default StyleSheet.create({
   
     centeredText: {
       textAlign: 'center',
-      verticalAlign: 'center', // Center the text vertically
+      alignItems: 'center', 
+      justifyContent: 'center'
     },
   
     gridContainer: {

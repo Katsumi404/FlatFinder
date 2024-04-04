@@ -1,8 +1,11 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle';
 import MainStyle from '../styles/MainStyle';
+import { auth, db } from "../firebase";
+import { collection, query, where, getDocs, writeBatch } from "firebase/firestore"; 
+import { signOut, updatePassword, signInWithEmailAndPassword, deleteUser } from 'firebase/auth';
 
 export default function MainScreen({ navigation }) { 
   const toSearch = () => {
@@ -15,6 +18,15 @@ export default function MainScreen({ navigation }) {
 
   const toUtilities = () => {
     navigation.navigate('Utlilities');
+  }
+
+  const logout = () => {
+    signOut(auth).then(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
+    });
   }
 
   return (
@@ -57,6 +69,12 @@ export default function MainScreen({ navigation }) {
       </View>
       <View style={MainStyle.footer}>
         <Text style={MainStyle.footerText}>Footer Section</Text>
+        <Button 
+          title="Logout" 
+          onPress={logout} 
+          style={AppStyle.button} 
+          color='green' 
+        />
       </View>
     </View>
   );

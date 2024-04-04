@@ -23,8 +23,4 @@ export default StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'white',
   },
-  button: {
-    margin: 10,
-    padding: 10,
-  },
 });

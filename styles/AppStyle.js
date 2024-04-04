@@ -16,5 +16,9 @@ export default StyleSheet.create({
     color: '#5FB15F',  
     opacity: 0.6,
     textDecorationLine: 'underline',
-  }
+  },
+  button: {
+    margin: 10,
+    padding: 10,
+  },
 })

@@ -30,7 +30,6 @@ export default function RegisterScreen({ navigation }) {
         setValidationMessage(error.message);
       });
     }
-    alert('Registration submitted');
   };
 
   const toLogin = () => {
@@ -104,7 +103,7 @@ export default function RegisterScreen({ navigation }) {
       <Button 
         title="Register" 
         onPress={handleRegistration} 
-        style={LoginStyle.button}
+        style={AppStyle.button}
         color='green'  
       />
       <Text style={{ color: '#77DD77' }}>Already have an account? <InlineTextButton text="Login" onPress={toLogin}/></Text>

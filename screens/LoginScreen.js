@@ -28,10 +28,10 @@ export default function LoginScreen({ navigation }) {
     if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          navigation.navigate('Main', { user: userCredential.user });
-          setErrorMessage("");
-          setEmail("");
-          setPassword("");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Main' }],
+          });
         })
         .catch((error) => {
           setErrorMessage(error.message)
@@ -72,7 +72,7 @@ export default function LoginScreen({ navigation }) {
       <Button 
         title="Login" 
         onPress={handleLogin} 
-        style={LoginStyle.button} 
+        style={AppStyle.button} 
         color='green' 
       />
       <StatusBar style="auto" />

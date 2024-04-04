@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }) {
       <Button 
         title="Reset" 
         onPress={handleReset} 
-        style={LoginStyle.button} 
+        style={AppStyle.button} 
         color='green' 
       />
       <StatusBar style="auto" />
