@@ -7,7 +7,18 @@ import LoginStyle from '../styles/LoginStyle.js';
 
 export default function LoginScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
-  const [username, setUsername] = useState('');
+
+  if (auth.currentUser) {
+    navigation.navigate('Main');
+  } else {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.navigate('Main');
+      }
+    });
+  }
+  
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const handleLogin = () => {
@@ -27,6 +38,8 @@ export default function LoginScreen({ navigation }) {
   return (
     <ImageBackground style={AppStyle.container} source={localImage}>
       <Text style={LoginStyle.title}>Login</Text>
+      <Text style={{ color: 'white' }}>{errorMessage}</Text>
+
       <TextInput
         placeholder="Username"
         value={username}
