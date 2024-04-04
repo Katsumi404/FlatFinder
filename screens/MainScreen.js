@@ -50,7 +50,7 @@ export default function MainScreen({ navigation }) {
             </View>
             {/* Bottom Combined Box */}
             <View style={MainStyle.gridRow}>
-              <View style={MainStyle.combinedBox}><Text style={MainStyle.centeredText}>Welcome Employee</Text></View>
+              <View style={MainStyle.combinedBox}><Text style={MainStyle.centeredText}t>Welcome Employee Zohaib Ahmed</Text></View>
             </View>
           </View>
         </View>
