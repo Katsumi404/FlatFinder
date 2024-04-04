@@ -46,12 +46,8 @@ export default function LoginScreen({ navigation }) {
         style={LoginStyle.button} 
         color='green' 
       />
-      <Button 
-        title="Forgot Password?" 
-        onPress={handleForgotPassword} 
-        style={LoginStyle.button} 
-        color='gray' 
-      />
+      
+      <Text style={{ color: 'green' }}><InlineTextButton text="Forgot password?" onPress={handleForgotPassword}/></Text>
       <Text style={{ color: 'green' }}>Don't have an account? <InlineTextButton text="Sign up" onPress={handleSignUp}/></Text>
       <StatusBar style="auto" />
     </ImageBackground>
