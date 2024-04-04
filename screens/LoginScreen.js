@@ -19,7 +19,6 @@ export default function LoginScreen({ navigation }) {
       }
     });
   }
-
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,6 +52,8 @@ export default function LoginScreen({ navigation }) {
   return (
     <ImageBackground style={AppStyle.container} source={localImage}>
       <Text style={LoginStyle.title}>Login</Text>
+      <Text style={{ color: 'white' }}>{errorMessage}</Text>
+
       <TextInput
         placeholder="Email"
         value={email}

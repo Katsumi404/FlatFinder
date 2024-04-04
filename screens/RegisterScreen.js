@@ -34,7 +34,7 @@ export default function RegisterScreen({ navigation }) {
   };
 
   const toLogin = () => {
-    navigation.pop();
+    navigation.popToTop();
   }
 
   const  validateAndSet = (value, valueToCompare, setValue) => {
@@ -49,6 +49,7 @@ export default function RegisterScreen({ navigation }) {
   return (
     <ImageBackground source={localImage} style={AppStyle.container}>
       <Text style={LoginStyle.title}>Register</Text>
+      <Text style={{ color: 'white' }}>{validationMessage}</Text>
         
       <Text style={LoginStyle.header}>Personal Details</Text>
       <TextInput 
@@ -85,7 +86,6 @@ export default function RegisterScreen({ navigation }) {
         
       <Text style={LoginStyle.header}>Set Password</Text>
       
-      <Text style={{ color: 'white' }}>{validationMessage}</Text>
       <TextInput 
         placeholder="Password" 
         value={password} 
