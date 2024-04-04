@@ -15,7 +15,17 @@ export default function RegisterScreen() {
   const [petPreference, setPetPreference] = useState('');
 
   const handleRegistration = () => {
-    alert('Registration submitted');
+    if (password===confirmPassword && password!=="") {
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        navigation.navigate('Main', {user: userCredential.user});
+      })
+      .catch((error) => {
+        setValidationMessage(error.message);
+      });
+    }
   };
 
   const toLogin = () => {
@@ -89,7 +99,7 @@ export default function RegisterScreen() {
       <Button 
         title="Register" 
         onPress={handleRegistration} 
-        style={LoginStyle.button}
+        style={AppStyle.button}
         color='green'  
       />
       <Text style={{ color: '#77DD77' }}>Already have an account? <InlineTextButton text="Login" onPress={toLogin}/></Text>

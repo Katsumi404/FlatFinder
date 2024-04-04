@@ -22,9 +22,20 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
   
   const handleLogin = () => {
-    // Here, you would put your login logic or navigation to home screen after successful login
-    alert('Username: ' + username + ', Password: ' + password);
-    navigation.navigate('Main');
+    if (email !== "" && password !== "") {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Main' }],
+          });
+        })
+        .catch((error) => {
+          setErrorMessage(error.message)
+        });
+    } else {
+      setErrorMessage("Please enter an email and password");
+    }
   };
 
   const handleForgotPassword = () => {
@@ -56,7 +67,7 @@ export default function LoginScreen({ navigation }) {
       <Button 
         title="Login" 
         onPress={handleLogin} 
-        style={LoginStyle.button} 
+        style={AppStyle.button} 
         color='green' 
       />
       
