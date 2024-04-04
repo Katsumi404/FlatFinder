@@ -4,20 +4,46 @@ import { TextInput, Button, Text, ImageBackground } from 'react-native';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
-  const [username, setUsername] = useState('');
+
+  if (auth.currentUser) {
+    navigation.navigate('Main');
+  } else {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.navigate('Main');
+      }
+    });
+  }
+
+  
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   
   const handleLogin = () => {
-    // Here, you would put your login logic or navigation to home screen after successful login
-    alert('Username: ' + username + ', Password: ' + password);
-    navigation.navigate('Main');
+    if (email !== "" && password !== "") {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          navigation.navigate('Main', { user: userCredential.user });
+          setErrorMessage("");
+          setEmail("");
+          setPassword("");
+        })
+        .catch((error) => {
+          setErrorMessage(error.message)
+        });
+    } else {
+      setErrorMessage("Please enter an email and password");
+    }
   };
 
   const handleForgotPassword = () => {
-    alert('Forgot Password button pressed');
+    navigation.navigate('ResetPassword');
   };
 
   const handleSignUp = () => {
@@ -28,9 +54,9 @@ export default function LoginScreen({ navigation }) {
     <ImageBackground style={AppStyle.container} source={localImage}>
       <Text style={LoginStyle.title}>Login</Text>
       <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername} // Update the username state
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail} // Update the username state
         style={LoginStyle.input}
       />
       <TextInput
@@ -40,15 +66,14 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry={true} // Hide password input
         style={LoginStyle.input}
       />
+      <Text style={{ color: '#77DD77' }}>Don't have an account? <InlineTextButton text="Sign up" onPress={handleSignUp}/></Text>
+      <Text style={{ color: '#77DD77' }}>Forgotten your password?<InlineTextButton text="Reset" onPress={handleForgotPassword}/></Text>
       <Button 
         title="Login" 
         onPress={handleLogin} 
         style={LoginStyle.button} 
         color='green' 
       />
-      
-      <Text style={{ color: 'green' }}><InlineTextButton text="Forgot password?" onPress={handleForgotPassword}/></Text>
-      <Text style={{ color: 'green' }}>Don't have an account? <InlineTextButton text="Sign up" onPress={handleSignUp}/></Text>
       <StatusBar style="auto" />
     </ImageBackground>
   );
