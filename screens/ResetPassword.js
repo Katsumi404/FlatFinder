@@ -17,34 +17,22 @@ export default function LoginScreen({ navigation }) {
     navigation.navigate('Main');
   };
 
-  const handleForgotPassword = () => {
-    navigation.navigate('ResetPassword');
-  };
-
-  const handleSignUp = () => {
-    navigation.navigate('Register');
+  const toLogin = () => {
+    navigation.pop();
   }
 
   return (
     <ImageBackground style={AppStyle.container} source={localImage}>
-      <Text style={LoginStyle.title}>Login</Text>
+      <Text style={LoginStyle.title}>Reset</Text>
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={setEmail} // Update the username state
         style={LoginStyle.input}
       />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword} // Update the password state
-        secureTextEntry={true} // Hide password input
-        style={LoginStyle.input}
-      />
-      <Text style={{ color: '#77DD77' }}>Don't have an account? <InlineTextButton text="Sign up" onPress={handleSignUp}/></Text>
-      <Text style={{ color: '#77DD77' }}>Forgotten your password?<InlineTextButton text="Reset" onPress={handleForgotPassword}/></Text>
+      <Text style={{ color: '#77DD77' }}>Go back to login?<InlineTextButton text="Login" onPress={toLogin}/></Text>
       <Button 
-        title="Login" 
+        title="Reset" 
         onPress={handleLogin} 
         style={LoginStyle.button} 
         color='green' 

@@ -9,11 +9,11 @@ export default StyleSheet.create({
     padding: 16,
   },
   inLineTextButton: {
-    color: 'green',  
+    color: '#5FB15F',  
     textDecorationLine: 'underline',   
   },
   inLineTextButtonPressed: {
-    color: 'green',  
+    color: '#5FB15F',  
     opacity: 0.6,
     textDecorationLine: 'underline',
   }
