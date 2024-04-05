@@ -4,7 +4,7 @@ import { TextInput, Button, Text, ImageBackground } from 'react-native';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
-import { auth } from "../firebase";
+import { auth } from "../firebase.js";
 import { sendPasswordResetEmail } from 'firebase/auth';
 
 export default function LoginScreen({ navigation }) {

@@ -23,4 +23,14 @@ export default StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'white',
   },
+  dateInput: {
+    width: '100%',
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    backgroundColor: 'white',
+    color: 'black',
+  },  
 });

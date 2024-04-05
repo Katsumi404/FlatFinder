@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, Button, ImageBackground, Text, ScrollView } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
@@ -15,8 +16,30 @@ export default function RegisterScreen({ navigation }) {
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [validationMessage, setValidationMessage] = useState('');
+
+  // Function to handle date change
+  const handleDateChange = (event, newDate) => {
+    if (event.type === 'set' && newDate !== undefined) {
+      setDateOfBirth(newDate); // Convert Date object to ISO string
+    }
+    setShowDatePicker(false); // Close the DateTimePicker regardless of selection
+  };
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
+
+  function formatDate(date) {// Get day, month, and year components from the date
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+  
+    // Format the date as "dd-mm-yyyy"
+    return `${day}-${month}-${year}`;
+  }
 
   const handleRegistration = () => {
     if (password===confirmPassword && password!=="") {
@@ -76,12 +99,23 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={setLastName} 
         style={LoginStyle.input}
       />
-      <TextInput 
-        placeholder="Date of Birth" 
-        value={dateOfBirth} 
-        onChangeText={setDateOfBirth} 
-        style={LoginStyle.input} 
+      
+      <TextInput
+        placeholder="Date of Birth"
+        value={formatDate(dateOfBirth)}
+        onChangeText={setDateOfBirth} // Disable this handler (optional)
+        style={[LoginStyle.dateInput]}
+        editable={false} // This prevents editing
       />
+      <Button 
+        title="Select Date" 
+        onPress={showDatepicker}
+        style={AppStyle.button}
+        color='green'
+      />
+      {showDatePicker && (
+        <DateTimePicker value={dateOfBirth} mode="date" display="default" onChange={handleDateChange} />
+      )}
         
       <Text style={LoginStyle.header}>Set Password</Text>
       
