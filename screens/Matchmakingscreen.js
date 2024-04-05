@@ -11,12 +11,24 @@ export default function MatchmakingScreen({ navigation }) {
 
   // Function to handle matchmaking logic
   const handleMatchmaking = () => {
-    // Here you would implement the logic to fetch matching flats based on user preferences
-    // For this example, let's just set a static list of matching flats
-    const matchingFlats = [
-      { id: 1, location: 'Downtown', rent: '$1000', rooms: '2' },
-      { id: 2, location: 'Suburb', rent: '$800', rooms: '1' },
-      // Add more matching flats as needed
+    const matchingFlats = flats.filter(flat => {
+    // Check if the location matches
+    if (location && flat.location.toLowerCase() !== location.toLowerCase()) {
+      return false;
+    }
+    // Check if the rent is within the budget
+    if (budget && flat.rent > parseInt(budget)) {
+      return false;
+    }
+    // Check if the number of rooms matches
+    if (numRooms && flat.rooms !== parseInt(numRooms)) {
+      return false;
+    }
+    return true;
+  });
+  setMatchList(matchingFlats);
+};
+
     ];
     setMatchList(matchingFlats);
   };
