@@ -31,27 +31,27 @@ export default function MatchmakingScreen({ navigation }) {
     <ImageBackground source={require('../assets/background.jpg')} style={AppStyle.container}>
       <ScrollView contentContainerStyle={AppStyle.scrollContainer}>
         <Text style={MatchmakingStyle.title}>Find Your Perfect Flat</Text>
-        <TextInput
+        <Location
           placeholder="Location"
           value={location}
           onChangeText={setLocation}
           style={MatchmakingStyle.input}
         />
-        <TextInput
+        <Budget 
           placeholder="Budget"
           value={budget}
           onChangeText={setBudget}
           style={MatchmakingStyle.input}
           keyboardType="numeric"
         />
-        <TextInput
+        <Rooms
           placeholder="Number of Rooms"
           value={numRooms}
           onChangeText={setNumRooms}
           style={MatchmakingStyle.input}
           keyboardType="numeric"
         />
-        <Button
+        <Search
           title="Search"
           onPress={handleMatchmaking}
           style={AppStyle.button}
