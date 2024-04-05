@@ -1,63 +1,79 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, ImageBackground, ScrollView } from 'react-native';
+import AppStyle from '../styles/AppStyle.js';
+import MatchmakingStyle from '../styles/MatchmakingStyle.js'; // You'll need to create this style file
 
-export default function MatchmakingPage() {
-    const [matches, setMatches] = useState([]);
+export default function MatchmakingScreen({ navigation }) {
+  const [location, setLocation] = useState('');
+  const [budget, setBudget] = useState('');
+  const [numRooms, setNumRooms] = useState('');
+  const [matchList, setMatchList] = useState([]);
 
-    useEffect(() => {
-        // Fetch matches from backend when component mounts
-        axios.get('/api/matches')
-            .then(response => {
-                setMatches(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching matches:', error);
-            });
-    }, []);
+  // Function to handle matchmaking logic
+  const handleMatchmaking = () => {
+    // Here you would implement the logic to fetch matching flats based on user preferences
+    // For this example, let's just set a static list of matching flats
+    const matchingFlats = [
+      { id: 1, location: 'Downtown', rent: '$1000', rooms: '2' },
+      { id: 2, location: 'Suburb', rent: '$800', rooms: '1' },
+      // Add more matching flats as needed
+    ];
+    setMatchList(matchingFlats);
+  };
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Matchmaking</Text>
-            <ScrollView style={styles.matchesList}>
-                {matches.map(match => (
-                    <View key={match.matchId} style={styles.matchItem}>
-                        <Text style={styles.matchText}>Match ID: {match.matchId}</Text>
-                        <Text style={styles.matchText}>User ID: {match.user1Id} and Listing Owner ID: {match.user2Id}</Text>
-                        <Text style={styles.matchText}>Match Type: {match.matchType}</Text>
-                        <Text style={styles.matchText}>Compatibility Score: {match.compatibilityScore}</Text>
-                    </View>
-                ))}
-            </ScrollView>
-            <StatusBar style="auto" />
-        </View>
-    );
+  // Function to navigate to flat details screen
+  const viewFlatDetails = (flatId) => {
+    // Navigate to flat details screen passing flatId
+    navigation.navigate('FlatDetails', { flatId });
+  };
+
+  return (
+    <ImageBackground source={require('../assets/background.jpg')} style={AppStyle.container}>
+      <ScrollView contentContainerStyle={AppStyle.scrollContainer}>
+        <Text style={MatchmakingStyle.title}>Find Your Perfect Flat</Text>
+        <TextInput
+          placeholder="Location"
+          value={location}
+          onChangeText={setLocation}
+          style={MatchmakingStyle.input}
+        />
+        <TextInput
+          placeholder="Budget"
+          value={budget}
+          onChangeText={setBudget}
+          style={MatchmakingStyle.input}
+          keyboardType="numeric"
+        />
+        <TextInput
+          placeholder="Number of Rooms"
+          value={numRooms}
+          onChangeText={setNumRooms}
+          style={MatchmakingStyle.input}
+          keyboardType="numeric"
+        />
+        <Button
+          title="Search"
+          onPress={handleMatchmaking}
+          style={AppStyle.button}
+          color="green"
+        />
+        {matchList.length > 0 && (
+          <View style={MatchmakingStyle.matchListContainer}>
+            <Text style={MatchmakingStyle.matchListTitle}>Matching Flats:</Text>
+            {matchList.map((flat) => (
+              <View key={flat.id} style={MatchmakingStyle.flatItem}>
+                <Text>{`Location: ${flat.location}, Rent: ${flat.rent}, Rooms: ${flat.rooms}`}</Text>
+                <Button
+                  title="View Details"
+                  onPress={() => viewFlatDetails(flat.id)}
+                  color="#77DD77"
+                />
+              </View>
+            ))}
+          </View>
+        )}
+      </ScrollView>
+    </ImageBackground>
+  );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    matchesList: {
-        width: '100%',
-    },
-    matchItem: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: 10,
-    },
-    matchText: {
-        fontSize: 16,
-    },
-});
