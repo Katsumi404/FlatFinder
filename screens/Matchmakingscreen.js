@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, ImageBackground, ScrollView } from 'react-native';
 import AppStyle from '../styles/AppStyle.js';
-import MatchmakingStyle from '../styles/MatchmakingStyle.js'; // You'll need to create this style file
+import MatchmakingStyle from '../styles/MatchmakingStyle.js';
 
 export default function MatchmakingScreen({ navigation }) {
   const [location, setLocation] = useState('');
