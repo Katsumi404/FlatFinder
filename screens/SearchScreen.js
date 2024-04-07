@@ -2,10 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import Fetch from '../components/fetch';
 
 export default function SearchScreen(){
 
+
   const searched = () => {
+
     if (Search !== ""){
       alert('You have searched for ' + Search);
     }
@@ -24,94 +27,11 @@ export default function SearchScreen(){
 
 
   return (
+
     <View style={styles.container}>
-      <StatusBar style="auto"/>
-      <Text style={styles.title}>Flat Searcher</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Search for flat"
-        placeholderTextColor="#999"
-        clearButtonMode='always'
-        value = {Search}
-        onChangeText={setSearch}
-        maxLength={30}
-      />
-      <Button title="Search" onPress={searched} style={styles.button} />
-      <Button title="Filter" onPress={() => setFilter(true)} style={styles.button}/> 
 
-      <Modal
-        animationType="none"
-        transparent={true}
-        visible={filter}
-        onRequestClose={() => {
-          setFilter(!filter);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.label}>Price</Text>
-            <Picker
-              style={styles.picker}
-              selectedValue={pricePref}
-              onValueChange={(itemValue, itemIndex) =>
-                setPricePref(itemValue)
-              }>
-              <Picker.Item label="Per Month" value="per-month"/>
-              <Picker.Item label="Per Week" value="per-week"/>
-            </Picker>
-
-            <Text style={styles.label}>Number of Rooms</Text>  
-            <Picker
-              style={styles.picker}
-              selectedValue={roomPref}
-              onValueChange={(itemValue, itemIndex) =>
-                setRoomPref(itemValue)
-              }>
-              <Picker.Item label="No Preference" value="no-room-pref"/>
-              <Picker.Item label="1" value="one-room"/>
-              <Picker.Item label="2" value="two-rooms"/>
-              <Picker.Item label="3" value="three-rooms"/>
-            </Picker>
-            
-            <Text style={styles.label}>Size</Text>
-            <Picker
-              style={styles.picker}
-              selectedValue={sizePref}
-              onValueChange={(itemValue, itemIndex) =>
-                setSizePref(itemValue)
-              }>
-              <Picker.Item label="No Preference" value="no-size-pref"/>
-              <Picker.Item label="Smallest To Largest" value="small-to-largest"/>
-              <Picker.Item label="Largest to Smallest" value="largest-to-smallest"/>
-            </Picker>
-            
-            <Text style={styles.label}>Pet Friendliness</Text>
-            <Picker
-              style={styles.picker}
-              selectedValue={petPref}
-              onValueChange={(itemValue, itemIndex) =>
-                setPetPref(itemValue)
-              }>
-              <Picker.Item label="No Preference" value="no-pet-pref"/>
-              <Picker.Item label="Yes" value="yes-pets"/>
-              <Picker.Item label="No" value="no-pets"/>
-            </Picker>
-            
-            <Text style={styles.label}>Availablity</Text>
-            <Picker
-              style={styles.picker}
-              selectedValue={availabilityPref}
-              onValueChange={(itemValue, itemIndex) =>
-                setAvailabilityPref(itemValue)
-              }>
-              <Picker.Item label="Available" value="available"/>
-              <Picker.Item label="Not Available" value="not-available"/>
-            </Picker>
-
-            <Button title="Close" onPress={() => setFilter(!filter)} />
-          </View>
-        </View>
-      </Modal>
+      <Fetch/>
+      
     </View>
   );
 }
