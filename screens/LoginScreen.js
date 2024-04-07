@@ -51,7 +51,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground style={AppStyle.container} source={localImage}>
-      <Text style={LoginStyle.title}>Login</Text>
+      <Text style={AppStyle.title}>Login</Text>
       <Text style={{ color: 'white' }}>{errorMessage}</Text>
 
       <TextInput

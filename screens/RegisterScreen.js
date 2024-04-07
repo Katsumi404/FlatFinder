@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, Button, ImageBackground, Text, ScrollView } from 'react-native';
+import { TextInput, Button, ImageBackground, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
@@ -70,7 +70,7 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <ImageBackground source={localImage} style={AppStyle.container}>
-      <Text style={LoginStyle.title}>Register</Text>
+      <Text style={AppStyle.title}>Register</Text>
       <Text style={{ color: 'white' }}>{validationMessage}</Text>
         
       <Text style={LoginStyle.header}>Personal Details</Text>

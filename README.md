@@ -5,9 +5,9 @@
 
   ## To run the app:
 1. Open a new terminal in visual studio code.
-2. Type in `npm install` to get the necessary package dependencies.
-3. Type in `npm install @react-navigation/native` to get the navuigation stack
-4. Type in `npm install @react-native-picker/picker` to get the datepicker component
+2. Type in `npm install @react-navigation/native` to get the navuigation stack
+3. Type in `npm install @react-native-picker/picker` to get the datepicker component
+4. Type in `npm install` to get the necessary package dependencies.
 5. Type in `npm install firebase` to get the database
 6. Type in `npm start` to run the application.
 7. On the Expo app on your phone, scan the barcode that comes up in the vsc terminal.

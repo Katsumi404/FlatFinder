@@ -1,12 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  title: {
-    color: 'white',
-    marginBottom: 20,
-    fontSize: 30,
-    fontWeight: 'bold',
-  },    
   header: {
     color: 'white',
     alignSelf: 'flex-start',

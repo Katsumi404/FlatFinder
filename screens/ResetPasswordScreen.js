@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }) {
   }
   return (
     <ImageBackground style={AppStyle.container} source={localImage}>
-      <Text style={LoginStyle.title}>Reset</Text>
+      <Text style={AppStyle.title}>Reset</Text>
       <TextInput
         placeholder="Email"
         value={email}
