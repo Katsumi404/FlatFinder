@@ -3,9 +3,11 @@ import { View, Text } from 'react-native';
 //import { Picker } from '@react-native-picker/picker';
 import AppStyle from '../styles/AppStyle.js';
 import Fetch from '../components/fetch';
+import { auth, db } from "../firebase";
 
-export default function SearchScreen(){
-
+export default function SearchScreen({ route }){
+  const { user } = route.params;
+  console.log(user)
 
   const searched = () => {
 

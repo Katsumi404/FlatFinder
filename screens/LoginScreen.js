@@ -1,21 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput, Button, Text, ImageBackground } from 'react-native';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence, onAuthStateChanged } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
-
+  
   if (auth.currentUser) {
-    navigation.navigate('Main');
+    navigation.navigate('Main', { user: userCredential.user });
   } else {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate('Main');
+        navigation.navigate('Main', { user: userCredential.user });
       }
     });
   }
@@ -28,17 +28,14 @@ export default function LoginScreen({ navigation }) {
     if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Main' }],
-          });
+          navigation.navigate('Main', { user: userCredential.user });
         })
         .catch((error) => {
           setErrorMessage(error.message)
         });
     } else {
       setErrorMessage("Please enter an email and password");
-    }
+    }  
   };
 
   const handleForgotPassword = () => {

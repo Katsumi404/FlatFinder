@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Text, View } from 'react-native';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle';
@@ -7,24 +7,37 @@ import { auth, db } from "../firebase";
 import { collection, query, where, getDocs, writeBatch } from "firebase/firestore"; 
 import { signOut, updatePassword, signInWithEmailAndPassword, deleteUser } from 'firebase/auth';
 
-export default function MainScreen({ navigation }) { 
+export default function MainScreen({ navigation, route }) { 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+       currUser = await auth.currentUser;
+       setUser(currUser)
+      // Handle user data or state update here
+      console.log(user)
+    };
+  
+    fetchCurrentUser();
+  }, []);
+
   const toSearch = () => {
-    navigation.navigate('Search');
+    navigation.navigate('Search', { user });
   }
 
   const toMatchmaking = () => {
-    navigation.navigate('Matchmaking');
+    navigation.navigate('Matchmaking', { user });
   }
 
   const toUtilities = () => {
-    navigation.navigate('Utlilities');
+    navigation.navigate('Utlilities', { user });
   }
 
   const logout = () => {
     signOut(auth).then(() => {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Login' }],
+        routes: [{ name: 'Login'}],
       });
     });
   }
