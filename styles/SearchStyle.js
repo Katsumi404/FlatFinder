@@ -5,7 +5,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
-    backgroundColor:'#20c073'
   },
   listItemText: {
     fontSize: 16,
