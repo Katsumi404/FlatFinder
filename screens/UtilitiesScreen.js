@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
-const UtilitiesScreen = () => {
+const UtilitiesScreen = ({ navigate, route }) => {
   const [area, setArea] = useState('');
   const [councilTax, setCouncilTax] = useState(null);
   const [electricityBill, setElectricityBill] = useState(null);

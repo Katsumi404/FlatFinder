@@ -11,7 +11,6 @@ import { collection, addDoc } from "firebase/firestore";
 
 export default function RegisterScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
-
   
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
@@ -61,8 +60,9 @@ export default function RegisterScreen({ navigation }) {
 
   const inputData = () => {
     const collectionRef = collection(db, "UserData");
+    const date = dateOfBirth.getTime();
     const data = {
-      DoB: formatDate(dateOfBirth),
+      DoB: date,
       Email: email,
       FirstName: firstName,
       Gender: gender,

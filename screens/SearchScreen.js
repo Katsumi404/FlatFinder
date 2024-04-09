@@ -8,6 +8,7 @@ import Fetchistings from '../components/fetchListings.js';
 
 export default function SearchScreen({ navigation, route }){
   const { serializableUser } = route.params;
+  console.log(serializableUser)
   const [Search, setSearch] = useState("");
   const [filter, setFilter] = useState(false);
   const [pricePref, setPricePref] = useState("no-price-pref");

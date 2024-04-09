@@ -7,6 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen.js";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen.js";
 import MainScreen from "./screens/MainScreen.js";
+import ProfileScreen from './screens/ProfileScreen.js';
 import SearchScreen from './screens/SearchScreen.js';
 import UtilitiesScreen from './screens/UtilitiesScreen.js';
 import MatchmakingScreen from './screens/MatchmakingScreen.js';
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: false}} />
         <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}} />
+        <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}} />
         <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: true}} />
         <Stack.Screen name="Utlilities" component={UtilitiesScreen} options={{headerShown: false}} />
         <Stack.Screen name="Matchmaking" component={MatchmakingScreen} options={{headerShown: false}} />

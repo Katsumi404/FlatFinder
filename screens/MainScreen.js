@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity, Image, Alert, FlatList, ImageBackground } from 'react-native';
 import { signOut } from 'firebase/auth';
 import backgroundImage from '../assets/background.jpg';
@@ -7,7 +7,6 @@ import { auth } from "../firebase";
 
 export default function MainScreen({ navigation }) {
   const user = auth.currentUser;
-  console.log(user);
   const serializableUser = {
     uid: user.uid,
     email: user.email,
@@ -37,7 +36,7 @@ export default function MainScreen({ navigation }) {
   };
 
   const handleViewProfile = () => {
-    Alert.alert('View Profile', 'Profile is viewed');
+    navigation.navigate('Profile', { serializableUser: serializableUser });
   };
 
   // Define options data
