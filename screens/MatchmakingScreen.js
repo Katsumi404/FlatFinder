@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, ImageBackground, ScrollView } from 'react-native';
 import AppStyle from '../styles/AppStyle.js';
 import MatchmakingStyle from '../styles/MatchmakingStyle.js';
-import { fetchMatchingFlats } from '../api'; // Assuming you have an API function to fetch matching flats
+import { fetchMatchingFlats } from '../api'; 
 
 export default function MatchmakingScreen({ navigation }) {
   const [pets, setPets] = useState(false);
