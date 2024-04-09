@@ -46,6 +46,7 @@ export default StyleSheet.create({
     marginBottom: 20,
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign:'center'
   },
   centeredView: {
     flex: 1,
