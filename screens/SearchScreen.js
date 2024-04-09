@@ -5,10 +5,16 @@ import { Picker } from '@react-native-picker/picker';
 import AppStyle from '../styles/AppStyle.js';
 import SearchStyle from '../styles/SearchStyle.js';
 import Fetch from '../components/fetch';
+import { auth, db } from "../firebase";
 
-export default function SearchScreen(){
+export default function SearchScreen({ route }){
+  const user = route?.params?.user;
 
-
+  if (!user) {
+    // Handle the case where user is not available
+    // For example, you can redirect the user to the login screen or display an error message
+    return <Text>User data not available</Text>;
+  }
   const searched = () => {
 
     if (Search !== ""){

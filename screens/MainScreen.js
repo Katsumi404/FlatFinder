@@ -1,24 +1,24 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
-import InlineTextButton from '../components/inlineTextButton.js';
-import AppStyle from '../styles/AppStyle';
-import MainStyle from '../styles/MainStyle';
-import { auth, db } from "../firebase";
-import { collection, query, where, getDocs, writeBatch } from "firebase/firestore"; 
-import { signOut, updatePassword, signInWithEmailAndPassword, deleteUser } from 'firebase/auth';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, Image, Alert, FlatList, ImageBackground } from 'react-native';
+import { signOut } from 'firebase/auth';
+import backgroundImage from '../assets/background.jpg';
+import MainStyle from '../styles/MainStyle.js';
+import { auth } from "../firebase";
 
-export default function MainScreen({ navigation }) { 
+export default function MainScreen({ navigation }) {
+  const user = auth.currentUser;
+
   const toSearch = () => {
-    navigation.navigate('Search');
-  }
+    navigation.navigate('Search', { user });
+  };
 
   const toMatchmaking = () => {
-    navigation.navigate('Matchmaking');
-  }
+    navigation.navigate('Matchmaking', { user });
+  };
 
   const toUtilities = () => {
-    navigation.navigate('Utlilities');
-  }
+    navigation.navigate('Utilities', { user });
+  };
 
   const logout = () => {
     signOut(auth).then(() => {
@@ -27,55 +27,86 @@ export default function MainScreen({ navigation }) {
         routes: [{ name: 'Login' }],
       });
     });
-  }
+  };
+
+  const handleViewProfile = () => {
+    Alert.alert('View Profile', 'Profile is viewed');
+  };
+
+  // Define options data
+  const options = [
+    { id: 1, title: 'Search', image: 'https://cdn-icons-png.freepik.com/512/9135/9135995.png' },
+    { id: 2, title: 'Saved Listings', image: 'https://img.icons8.com/color/70/000000/filled-like.png' },
+    { id: 3, title: 'Utility Costs', image: 'https://cdn-icons-png.freepik.com/512/5656/5656521.png' },
+    { id: 4, title: 'Matchmaking', image: 'https://cdn-icons-png.flaticon.com/512/284/284154.png' },
+  ];
+
+  const renderHeader = () => {
+    return (
+      <View style={MainStyle.header}>
+        <View style={MainStyle.headerTitle}>
+          <Text style={MainStyle.headerText}>Welcome to your</Text>
+          <Text style={MainStyle.headerSubText}>Flatfinder!</Text>
+        </View>
+        <TouchableOpacity style={MainStyle.profileIcon} onPress={handleViewProfile}>
+          <Image style={MainStyle.profileImage} source={{ uri: 'https://img.icons8.com/ios/50/000000/user-male-circle.png' }} />
+          <Text style={MainStyle.profileText}>View Profile</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderFooter = () => {
+    return (
+      <View style={MainStyle.footer}>
+        <TouchableOpacity style={MainStyle.logoutContainer} onPress={logout}>
+          <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/logout-512.png' }} />
+          <Text style={MainStyle.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
-    <View style={AppStyle.container}>
-      <View style={MainStyle.header}>
-        <Text style={MainStyle.headerText}>Flat Finder App</Text>
-      </View>
-      <View style={MainStyle.gridContainer}>
-        <View style={MainStyle.gridContainer}>
-          {/* Top 2 Rows */}
-          <View style={MainStyle.gridContainer}>
-            {/* Top 3 Rows */}
-            <View style={MainStyle.gridRow}>
-                <View style={MainStyle.gridItem}>
-                <Text><InlineTextButton text='Search' onPress={toSearch}/></Text>
-              </View>
-              <View style={MainStyle.gridItem}>
-                <Text><InlineTextButton text='Matchmaking' onPress={toMatchmaking}/></Text>
-              </View>
-              <View style={MainStyle.gridItem}>
-                <Text><InlineTextButton text='Utility' onPress={toUtilities}/></Text>
-              </View>
-            </View>
-            <View style={MainStyle.gridRow}>
-              <View style={MainStyle.gridItem}><Text>4</Text></View>
-              <View style={MainStyle.gridItem}><Text>5</Text></View>
-              <View style={MainStyle.gridItem}><Text>6</Text></View>
-            </View>
-            <View style={MainStyle.gridRow}>
-              <View style={MainStyle.gridItem}><Text>7</Text></View>
-              <View style={MainStyle.gridItem}><Text>8</Text></View>
-              <View style={MainStyle.gridItem}><Text>9</Text></View>
-            </View>
-            {/* Bottom Combined Box */}
-            <View style={MainStyle.gridRow}>
-              <View style={MainStyle.combinedBox}><Text style={MainStyle.centeredText}>Welcome Employee</Text></View>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View style={MainStyle.footer}>
-        <Text style={MainStyle.footerText}>Footer Section</Text>
-        <Button 
-          title="Logout" 
-          onPress={logout} 
-          style={AppStyle.button} 
-          color='green' 
+    <ImageBackground source={backgroundImage} style={MainStyle.backgroundImage}>
+      <View style={MainStyle.overlay}></View>
+      {renderHeader()}
+      <View style={MainStyle.contentContainer}>
+        <FlatList
+          style={MainStyle.list}
+          contentContainerStyle={MainStyle.listContainer}
+          data={options}
+          horizontal={false}
+          numColumns={2}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                style={MainStyle.card}
+                onPress={() => {
+                  if (item.title === 'Search') {
+                    toSearch();
+                  } else if (item.title === 'Saved Listings') {
+                    // Implement logic to navigate to saved listings screen
+                  } else if (item.title === 'Utility Costs') {
+                    toUtilities();
+                  } else if (item.title === 'Matchmaking') {
+                    toMatchmaking();
+                  }
+                }}>
+                <View style={MainStyle.cardFooter}></View>
+                <Image style={MainStyle.cardImage} source={{ uri: item.image }} />
+                <View style={MainStyle.cardHeader}>
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={MainStyle.title}>{item.title}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
         />
+        {renderFooter()}
       </View>
-    </View>
+    </ImageBackground>
   );
 }
