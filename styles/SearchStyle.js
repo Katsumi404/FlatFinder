@@ -36,6 +36,19 @@ export default StyleSheet.create({
     resizeMode: 'cover',
   }, 
 
+  input: {
+    width: '80%', 
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin:'auto'
+  }
+  ,
   picker:{
     textAlign:'center'
   },

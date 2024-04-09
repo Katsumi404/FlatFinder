@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, View, Text, Image, ScrollView } from 'react-native';
 import AppStyle from '../styles/AppStyle.js';
 import SearchStyle from '../styles/SearchStyle.js';
 import { db } from "../firebase.js"; 
 import { collection, getDocs } from "firebase/firestore";
 
-function FetchAllListings({ serializableUser }) {
-    console.log(serializableUser.email);
+function FetchListings({ searchQuery, serializableUser }) {
     const [allDocs, setAllDocs] = useState([]);
+
+    useEffect(() => {
+        if (searchQuery !== "") {
+          fetchAll(searchQuery);
+        }
+    }, [searchQuery]);
+    
 
     function fetchAll() {
         // Reference to the collection you want to fetch documents from
@@ -28,8 +34,8 @@ function FetchAllListings({ serializableUser }) {
             });
     }
 
-    function filterListing() {
-        alert('filters opened for ');
+    function clear() {
+        setAllDocs([]);
     }
 
     function saveListing() {
@@ -38,19 +44,6 @@ function FetchAllListings({ serializableUser }) {
 
     return (
         <View>
-        <Button 
-            title="Filter listing" 
-            onPress={filterListing} 
-            style={AppStyle.button} 
-            color='green' 
-        /> 
-        <Button 
-            title="Search Listing" 
-            onPress={fetchAll} 
-            style={AppStyle.button} 
-            color='green' 
-        /> 
-
         <ScrollView>
             {/* Display fetched documents */}
             {allDocs.map((doc) => (
@@ -77,9 +70,14 @@ function FetchAllListings({ serializableUser }) {
                     </View>
                 </View>
             ))}
+            <Button 
+                title="Clear Listings" 
+                onPress={clear} 
+                color='green' 
+            />
     </ScrollView>
     </View>
     );
 }
 
-export default FetchAllListings;
+export default FetchListings;
