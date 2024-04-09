@@ -1,40 +1,21 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, ImageBackground, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, ImageBackground, ScrollView } from 'react-native';
 import AppStyle from '../styles/AppStyle.js';
 import MatchmakingStyle from '../styles/MatchmakingStyle.js';
+import { fetchMatchingFlats } from '../api'; // Assuming you have an API function to fetch matching flats
 
 export default function MatchmakingScreen({ navigation }) {
-  const [location, setLocation] = useState('');
-  const [budget, setBudget] = useState('');
-  const [numRooms, setNumRooms] = useState('');
+  const [pets, setPets] = useState(false);
+  const [smoking, setSmoking] = useState(false);
+  const [social, setSocial] = useState(false);
+  const [organized, setOrganized] = useState(false);
   const [matchList, setMatchList] = useState([]);
 
-  // Function to handle matchmaking logic
-  const handleMatchmaking = () => {
-    // Replace this with your logic to fetch flat data from somewhere
-    const flats = [
-      { id: 1, location: 'Downtown', rent: 1000, rooms: 2 },
-      { id: 2, location: 'Suburb', rent: 800, rooms: 1 },
-      { id: 3, location: 'Downtown', rent: 1200, rooms: 3 },
-    ];
-
-    const matchingFlats = flats.filter(flat => {
-      // Check if the location matches
-      if (location && flat.location.toLowerCase() !== location.toLowerCase()) {
-        return false;
-      }
-      // Check if the rent is within the budget
-      if (budget && flat.rent > parseInt(budget)) {
-        return false;
-      }
-      // Check if the number of rooms matches
-      if (numRooms && flat.rooms !== parseInt(numRooms)) {
-        return false;
-      }
-      return true;
-    });
-    setMatchList(matchingFlats);
-  };
+  useEffect(() => {
+    fetchMatchingFlats({ pets, smoking, social, organized })
+      .then(data => setMatchList(data))
+      .catch(error => console.error('Error fetching matching flats:', error));
+  }, [pets, smoking, social, organized]);
 
   // Function to navigate to flat details screen
   const viewFlatDetails = (flatId) => {
@@ -46,32 +27,40 @@ export default function MatchmakingScreen({ navigation }) {
     <ImageBackground source={require('../assets/background.jpg')} style={AppStyle.container}>
       <ScrollView contentContainerStyle={AppStyle.scrollContainer}>
         <Text style={MatchmakingStyle.title}>Find Your Perfect Flat</Text>
-        <TextInput
-          placeholder="Location"
-          value={location}
-          onChangeText={setLocation}
-          style={MatchmakingStyle.input}
-        />
-        <TextInput
-          placeholder="Budget"
-          value={budget}
-          onChangeText={setBudget}
-          style={MatchmakingStyle.input}
-          keyboardType="numeric"
-        />
-        <TextInput
-          placeholder="Number of Rooms"
-          value={numRooms}
-          onChangeText={setNumRooms}
-          style={MatchmakingStyle.input}
-          keyboardType="numeric"
-        />
-        <Button
-          title="Search"
-          onPress={handleMatchmaking}
-          style={AppStyle.button}
-          color="green"
-        />
+        <View style={MatchmakingStyle.checkboxContainer}>
+          <View style={MatchmakingStyle.checkboxItem}>
+            <Text>Pets</Text>
+            <Button
+              title={pets ? 'Yes' : 'No'}
+              onPress={() => setPets(!pets)}
+              color={pets ? 'green' : 'red'}
+            />
+          </View>
+          <View style={MatchmakingStyle.checkboxItem}>
+            <Text>Smoking</Text>
+            <Button
+              title={smoking ? 'Yes' : 'No'}
+              onPress={() => setSmoking(!smoking)}
+              color={smoking ? 'green' : 'red'}
+            />
+          </View>
+          <View style={MatchmakingStyle.checkboxItem}>
+            <Text>Social</Text>
+            <Button
+              title={social ? 'Yes' : 'No'}
+              onPress={() => setSocial(!social)}
+              color={social ? 'green' : 'red'}
+            />
+          </View>
+          <View style={MatchmakingStyle.checkboxItem}>
+            <Text>Organized</Text>
+            <Button
+              title={organized ? 'Yes' : 'No'}
+              onPress={() => setOrganized(!organized)}
+              color={organized ? 'green' : 'red'}
+            />
+          </View>
+        </View>
         {matchList.length > 0 && (
           <View style={MatchmakingStyle.matchListContainer}>
             <Text style={MatchmakingStyle.matchListTitle}>Matching Flats:</Text>
