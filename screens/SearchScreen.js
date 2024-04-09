@@ -152,5 +152,4 @@ export default function SearchScreen({ navigation, route }){
         {renderFooter()}
       </View>
     </ImageBackground>
-  );
 }
