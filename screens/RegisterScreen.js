@@ -21,41 +21,48 @@ export default function RegisterScreen({ navigation }) {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [validationMessage, setValidationMessage] = useState('');
+  const [minDate] = useState(new Date(Date.now() - 86400000));
 
+  
   // Function to handle date change
-  const handleDateChange = (event, newDate) => {
-    if (event.type === 'set' && newDate !== undefined) {
-      setDateOfBirth(newDate); // Convert Date object to ISO string
+  const handleDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || dateOfBirth;
+    setShowDatePicker(false);
+    if (event.type === 'set' && currentDate <= minDate) {
+      Alert.alert("Error", "Please select a date that is not today.");
+      return;
     }
-    setShowDatePicker(false); // Close the DateTimePicker regardless of selection
+    setDateOfBirth(currentDate);
   };
 
   const showDatepicker = () => {
     setShowDatePicker(true);
   };
 
-  function formatDate(date) {// Get day, month, and year components from the date
+  function formatDate(date) {
     const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
-  
-    // Format the date as "dd-mm-yyyy"
     return `${day}-${month}-${year}`;
   }
 
   const handleRegistration = () => {
-    if (password===confirmPassword && password!=="") {
-      createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up 
-        const user = userCredential.user;
-        inputData();
-        navigation.navigate('Main', {user: userCredential.user});
-      })
-      .catch((error) => {
-        setValidationMessage(error.message);
-      });
+    if (!email || !gender || !firstName || !lastName || !password || !confirmPassword) {
+      setValidationMessage('Please fill in all fields.');
+      return;
     }
+    if (password !== confirmPassword) {
+      setValidationMessage('Passwords do not match.');
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      inputData();
+      navigation.navigate('Main', {user: userCredential.user});
+    })
+    .catch((error) => {
+      setValidationMessage(error.message);
+    });
   };
 
   const inputData = () => {
