@@ -22,7 +22,7 @@ export default function App() {
         <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: false}} />
         <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}} />
-        <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}} />
+        <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: true}} />
         <Stack.Screen name="Utlilities" component={UtilitiesScreen} options={{headerShown: false}} />
         <Stack.Screen name="Matchmaking" component={MatchmakingScreen} options={{headerShown: false}} />
       </Stack.Navigator>

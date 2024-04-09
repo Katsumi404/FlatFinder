@@ -5,6 +5,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
+    backgroundColor:'#20c073'
   },
   listItemText: {
     fontSize: 16,
@@ -18,8 +19,12 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    textAlign: 'center'
-  },
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin:'auto'
+  }
+  ,
   picker:{
     textAlign:'center'
   },
@@ -30,6 +35,7 @@ export default StyleSheet.create({
     marginBottom: 20,
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign:'center'
   },
   centeredView: {
     flex: 1,
