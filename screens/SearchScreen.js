@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { ImageBackground, View, TouchableOpacity, Image, Text } from 'react-native';
+import backgroundImage from '../assets/background.jpg';
 //import { Picker } from '@react-native-picker/picker';
-import AppStyle from '../styles/AppStyle.js';
-import Fetch from '../components/fetch';
-import { auth, db } from "../firebase";
+import MainStyle from '../styles/MainStyle.js';
+import FetchAllListings from '../components/fetchAllListings.js';
 
-export default function SearchScreen({ route }){
-  const user = route?.params?.user;
+export default function SearchScreen({ navigation, route }){
+  const { serializableUser } = route.params;
 
-  if (!user) {
-    // Handle the case where user is not available
-    // For example, you can redirect the user to the login screen or display an error message
-    return <Text>User data not available</Text>;
-  }
+  const toMain = () => {
+    navigation.pop();
+  };
+
   const searched = () => {
-
     if (Search !== ""){
       alert('You have searched for ' + Search);
     }
@@ -31,9 +29,34 @@ export default function SearchScreen({ route }){
   const [petPref, setPetPref] = useState("no-pet-pref");
   const [availabilityPref, setAvailabilityPref] = useState("available");
 
+  const renderHeader = () => {
+    return (
+      <View style={MainStyle.header}>
+        <View style={MainStyle.headerTitle}>
+          <Text style={MainStyle.headerText}>Flat Search Page</Text>
+        </View>
+      </View>
+    );
+  };
+
+  const renderFooter = () => {
+    return (
+      <View style={MainStyle.footer}>
+        <TouchableOpacity style={MainStyle.logoutContainer} onPress={toMain}>
+          <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/10196/10196993.png' }} />
+          <Text style={MainStyle.logoutText}>Home</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
-    <View style={AppStyle.container} >
-      <Fetch />
-    </View>
+    <ImageBackground source={backgroundImage} style={MainStyle.backgroundImage}>
+      <View style={MainStyle.overlay}>
+        {renderHeader()}
+        <FetchAllListings serializableUser={serializableUser}/>
+        {renderFooter()}
+      </View>
+    </ImageBackground>
   );
 }

@@ -7,17 +7,24 @@ import { auth } from "../firebase";
 
 export default function MainScreen({ navigation }) {
   const user = auth.currentUser;
+  console.log(user);
+  const serializableUser = {
+    uid: user.uid,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    phoneNumber: user.phoneNumber,
+  };
 
   const toSearch = () => {
-    navigation.navigate('Search', { user });
+    navigation.navigate('Search', { serializableUser: serializableUser });
   };
 
   const toMatchmaking = () => {
-    navigation.navigate('Matchmaking', { user });
+    navigation.navigate('Matchmaking', { serializableUser: serializableUser });
   };
 
   const toUtilities = () => {
-    navigation.navigate('Utilities', { user });
+    navigation.navigate('Utilities', { serializableUser: serializableUser });
   };
 
   const logout = () => {

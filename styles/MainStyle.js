@@ -103,6 +103,10 @@ export default StyleSheet.create({
     color: '#696969',
   },
   footer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0, 
     backgroundColor: '#cadbd0',
     padding: 20,
     flexDirection: 'row-reverse',

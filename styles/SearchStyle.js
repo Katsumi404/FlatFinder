@@ -1,25 +1,41 @@
 import { StyleSheet } from "react-native-web";
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+  },
   listItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 10,
+    borderRadius: 5,
+    backgroundColor: '#cadbd0',
+  },
+  titleContainer: {
     marginBottom: 5,
+  },
+  listItemTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  contentContainer: {
+    flexDirection: 'row',
+  },
+  textContainer: {
+    flex: 1,
+    marginLeft: 5,
   },
   listItemText: {
     fontSize: 16,
+  },
+  imageContainer: {
     marginLeft: 10,
   },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
+  }, 
 
-  input: {
-    width: '80%', 
-    padding: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    textAlign: 'center'
-  },
   picker:{
     textAlign:'center'
   },
