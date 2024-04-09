@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, FlatList, ImageBackground } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Alert, FlatList, ImageBackground } from 'react-native';
 import { signOut } from 'firebase/auth';
 import backgroundImage from '../assets/background.jpg';
+import MainStyle from '../styles/MainStyle.js';
+import { auth } from "../firebase";
 
 export default function MainScreen({ navigation }) {
+  const user = auth.currentUser;
+
   const toSearch = () => {
-    navigation.navigate('Search');
+    navigation.navigate('Search', { user });
   };
 
   const toMatchmaking = () => {
-    navigation.navigate('Matchmaking');
+    navigation.navigate('Matchmaking', { user });
   };
 
   const toUtilities = () => {
-    navigation.navigate('Utilities');
+    navigation.navigate('Utilities', { user });
   };
 
   const logout = () => {
@@ -39,14 +43,14 @@ export default function MainScreen({ navigation }) {
 
   const renderHeader = () => {
     return (
-      <View style={styles.header}>
-        <View style={styles.headerTitle}>
-          <Text style={styles.headerText}>Welcome to your</Text>
-          <Text style={styles.headerSubText}>Flatfinder!</Text>
+      <View style={MainStyle.header}>
+        <View style={MainStyle.headerTitle}>
+          <Text style={MainStyle.headerText}>Welcome to your</Text>
+          <Text style={MainStyle.headerSubText}>Flatfinder!</Text>
         </View>
-        <TouchableOpacity style={styles.profileIcon} onPress={handleViewProfile}>
-          <Image style={styles.profileImage} source={{ uri: 'https://img.icons8.com/ios/50/000000/user-male-circle.png' }} />
-          <Text style={styles.profileText}>View Profile</Text>
+        <TouchableOpacity style={MainStyle.profileIcon} onPress={handleViewProfile}>
+          <Image style={MainStyle.profileImage} source={{ uri: 'https://img.icons8.com/ios/50/000000/user-male-circle.png' }} />
+          <Text style={MainStyle.profileText}>View Profile</Text>
         </TouchableOpacity>
       </View>
     );
@@ -54,23 +58,23 @@ export default function MainScreen({ navigation }) {
 
   const renderFooter = () => {
     return (
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.logoutContainer} onPress={logout}>
-          <Image style={styles.logoImage} source={{ uri: 'https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/logout-512.png' }} />
-          <Text style={styles.logoutText}>Logout</Text>
+      <View style={MainStyle.footer}>
+        <TouchableOpacity style={MainStyle.logoutContainer} onPress={logout}>
+          <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/logout-512.png' }} />
+          <Text style={MainStyle.logoutText}>Logout</Text>
         </TouchableOpacity>
       </View>
     );
   };
 
   return (
-    <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-      <View style={styles.overlay}></View>
+    <ImageBackground source={backgroundImage} style={MainStyle.backgroundImage}>
+      <View style={MainStyle.overlay}></View>
       {renderHeader()}
-      <View style={styles.contentContainer}>
+      <View style={MainStyle.contentContainer}>
         <FlatList
-          style={styles.list}
-          contentContainerStyle={styles.listContainer}
+          style={MainStyle.list}
+          contentContainerStyle={MainStyle.listContainer}
           data={options}
           horizontal={false}
           numColumns={2}
@@ -78,7 +82,7 @@ export default function MainScreen({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-                style={styles.card}
+                style={MainStyle.card}
                 onPress={() => {
                   if (item.title === 'Search') {
                     toSearch();
@@ -90,11 +94,11 @@ export default function MainScreen({ navigation }) {
                     toMatchmaking();
                   }
                 }}>
-                <View style={styles.cardFooter}></View>
-                <Image style={styles.cardImage} source={{ uri: item.image }} />
-                <View style={styles.cardHeader}>
+                <View style={MainStyle.cardFooter}></View>
+                <Image style={MainStyle.cardImage} source={{ uri: item.image }} />
+                <View style={MainStyle.cardHeader}>
                   <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={MainStyle.title}>{item.title}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -106,128 +110,3 @@ export default function MainScreen({ navigation }) {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)', // White with 50% opacity
-  },
-  header: {
-    backgroundColor: '#cadbd0',
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    alignItems: 'center',
-    marginLeft: 90,
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-    marginTop: 35,
-  },
-  headerSubText: {
-    fontSize: 18,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  profileIcon: {
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 15,
-    marginBottom: 5,
-    marginTop: 35,
-  },
-  profileText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  list: {
-    paddingHorizontal: 5,
-  },
-  listContainer: {
-    alignItems: 'center',
-    marginTop: 60,
-  },
-  card: {
-    shadowColor: '#00000021',
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-    elevation: 12,
-    marginVertical: 10,
-    backgroundColor: '#cadbd0',
-    flexBasis: '42%',
-    marginHorizontal: 10,
-  },
-  cardHeader: {
-    paddingVertical: 17,
-    paddingHorizontal: 16,
-    borderTopLeftRadius: 1,
-    borderTopRightRadius: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cardFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 12.5,
-    paddingBottom: 25,
-    paddingHorizontal: 16,
-    borderBottomLeftRadius: 1,
-    borderBottomRightRadius: 1,
-  },
-  cardImage: {
-    height: 70,
-    width: 70,
-    alignSelf: 'center',
-  },
-  title: {
-    fontSize: 18,
-    flex: 1,
-    alignSelf: 'center',
-    color: '#696969',
-  },
-  footer: {
-    backgroundColor: '#cadbd0',
-    padding: 20,
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  logoutContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  logoImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 15,
-    marginRight: 10,
-  },
-  logoutText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-    marginRight: 20,
-  },
-});
