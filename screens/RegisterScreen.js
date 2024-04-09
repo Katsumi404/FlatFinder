@@ -5,13 +5,16 @@ import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../firebase.js"; 
+import { collection, addDoc } from "firebase/firestore";
 
 export default function RegisterScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
 
+  
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [gender, setGender] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
@@ -47,12 +50,30 @@ export default function RegisterScreen({ navigation }) {
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
+        inputData();
         navigation.navigate('Main', {user: userCredential.user});
       })
       .catch((error) => {
         setValidationMessage(error.message);
       });
     }
+  };
+
+  const inputData = () => {
+    const collectionRef = collection(db, "UserData");
+    const data = {
+      DoB: formatDate(dateOfBirth),
+      Email: email,
+      FirstName: firstName,
+      Gender: gender,
+      LastName: lastName
+    };
+  
+    addDoc(collectionRef, data).then((docRef) => {
+      console.log("Document successfully written! Document ID:", docRef.id);
+    }).catch((error) => {
+      setValidationMessage(error.message);
+    });
   };
 
   const toLogin = () => {
@@ -81,13 +102,6 @@ export default function RegisterScreen({ navigation }) {
         style={LoginStyle.input}   
       />
       <TextInput 
-        placeholder="Phone Number" 
-        value={phoneNumber} 
-        onChangeText={setPhoneNumber} 
-        style={LoginStyle.input} 
-        keyboardType="phone-pad" 
-      />
-      <TextInput 
         placeholder="First Name" 
         value={firstName} 
         onChangeText={setFirstName} 
@@ -97,6 +111,12 @@ export default function RegisterScreen({ navigation }) {
         placeholder="Last Name" 
         value={lastName} 
         onChangeText={setLastName} 
+        style={LoginStyle.input}
+      />
+      <TextInput 
+        placeholder="Gender" 
+        value={gender} 
+        onChangeText={setGender} 
         style={LoginStyle.input}
       />
       
