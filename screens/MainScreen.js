@@ -7,6 +7,7 @@ import { auth } from "../firebase";
 
 export default function MainScreen({ navigation }) {
   const user = auth.currentUser;
+  console.log(user);
   const serializableUser = {
     uid: user.uid,
     email: user.email,
