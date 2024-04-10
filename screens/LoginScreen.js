@@ -11,11 +11,11 @@ export default function LoginScreen({ navigation }) {
   const localImage = require('../assets/background.jpg');
   
   if (auth.currentUser) {
-    navigation.navigate('Main', { user: userCredential.user });
+    navigation.navigate('Main');
   } else {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate('Main', { user: userCredential.user });
+        navigation.navigate('Main');
       }
     });
   }

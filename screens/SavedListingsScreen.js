@@ -11,7 +11,6 @@ export default function SavedListingsScreen({ navigation, route }) {
     const uid =  serializableUser.uid;
     const email = serializableUser.email;
     const emailVerified = serializableUser.emailVerified;
-    const phoneNumber = serializableUser.phoneNumber;
 
     const toMain = () => {
         navigation.pop();

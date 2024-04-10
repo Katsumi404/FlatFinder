@@ -11,7 +11,6 @@ export default function MainScreen({ navigation }) {
     uid: user.uid,
     email: user.email,
     emailVerified: user.emailVerified,
-    phoneNumber: user.phoneNumber,
   };
 
   const toSearch = () => {
