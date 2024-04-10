@@ -13,14 +13,8 @@ export default function ProfileScreen({ navigation, route }) {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    let dateOfBirth = new Date();
+    const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [gender, setGender] = useState('');
-    const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
-    const [smoking, setSmoking] = useState(false);
-    const [pets, setPets] = useState(false);
-    const [riseTime, setRiseTime] = useState('');
-    const [sleepTime, setSleepTime] = useState('');
-    const [personalityType, setPersonalityType] = useState('');
 
     const { serializableUser } = route.params;
     const queryRef = query(collection(db, "UserData"), where("Email", "==", serializableUser.email));
@@ -34,19 +28,10 @@ export default function ProfileScreen({ navigation, route }) {
             setEmail(userData.Email);
             const date = new Date(userData.DoB);
             const formattedDate = date.toLocaleDateString();
-            dateOfBirth = formattedDate;
+            setDateOfBirth(formattedDate);
             setFirstName(userData.FirstName);
             setLastName(userData.LastName);
             setGender(userData.Gender);
-            
-            // Access more fields as neededAttempt to access matchmaking features
-            // May not have been updates yet
-            if ('DietaryRestrictions' in userData) setDietaryRestrictions(userData.DietaryRestrictions);
-            if ('Smoking' in userData) setSmoking(userData.Smoking);
-            if ('Pets' in userData) setPets(userData.Pets);
-            if ('RiseTime' in userData) setRiseTime(userData.RiseTime);
-            if ('SleepTime' in userData) setSleepTime(userData.SleepTime);
-            if ('PersonalityType' in userData) setPersonalityType(userData.PersonalityType);
         });
     })
     .catch((error) => {
@@ -57,23 +42,20 @@ export default function ProfileScreen({ navigation, route }) {
         navigation.pop();
     };
 
-    const logout = () => {
-        signOut(auth).then(() => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Login' }],
-          });
-        });
+    const toExtraProfile = () => {
+        const profileData = {
+            firstName: firstName,
+            lastName: lastName,
+            userUid: serializableUser.uid,
+            email: serializableUser.email,
+            emailVerified: serializableUser.emailVerified,
+            docUid: uid,
+        }
+        navigation.navigate('ExtraProfile', { profileData: profileData });
     };
 
     const updateProfile = () => {
         const data = {
-            DietaryRestrictions: dietaryRestrictions !== '' ? dietaryRestrictions : undefined,
-            Smoking: smoking !== '' ? smoking : undefined,
-            Pets: pets !== '' ? pets : undefined,
-            RiseTime: riseTime ? riseTime : undefined,
-            SleepTime: sleepTime ? sleepTime : undefined,
-            PersonalityType: personalityType !== '' ? personalityType : undefined,
             Email: email || undefined,
             FirstName: firstName || undefined,
             LastName: lastName || undefined,
@@ -90,10 +72,6 @@ export default function ProfileScreen({ navigation, route }) {
                 <Text style={MainStyle.headerText}>Welcome</Text>
                 <Text style={MainStyle.headerSubText}>{firstName} {lastName}</Text>
               </View>
-              <TouchableOpacity style={MainStyle.logoutContainer} onPress={toMain}>
-                <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/10196/10196993.png' }} />
-                <Text style={MainStyle.logoutText}>Home</Text>
-              </TouchableOpacity>
             </View>
           );
       };
@@ -101,16 +79,10 @@ export default function ProfileScreen({ navigation, route }) {
     const renderFooter = () => {
         return (
           <View style={MainStyle.footer}>
-            <TouchableOpacity style={MainStyle.logoutContainer} onPress={logout}>
-                <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/logout-512.png' }} />
-                <Text style={MainStyle.logoutText}>Logout</Text>
+            <TouchableOpacity style={MainStyle.logoutContainer} onPress={toMain}>
+                <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/10196/10196993.png' }} />
+                <Text style={MainStyle.logoutText}>Home</Text>
             </TouchableOpacity>
-            <Button 
-                title="Save changes" 
-                onPress={updateProfile} 
-                style={AppStyle.button}
-                color='green'  
-            />
           </View>
         );
     };
@@ -145,37 +117,17 @@ export default function ProfileScreen({ navigation, route }) {
                         onChangeText={setGender} 
                         style={LoginStyle.input}
                     />
-                    <TextInput 
-                        placeholder="Dietary restrictions" 
-                        value={dietaryRestrictions} 
-                        onChangeText={setDietaryRestrictions} 
-                        style={LoginStyle.input}   
+                    <Button 
+                        title="More options" 
+                        onPress={toExtraProfile} 
+                        style={AppStyle.button}
+                        color='green'  
                     />
-                <View style={LoginStyle.row}>
-                        <Text>Do you smoke?</Text>
-                        <Switch
-                        value={smoking}
-                        onValueChange={(newValue) => setSmoking(newValue)}
-                        />
-                    </View>
-                    <View style={LoginStyle.row}>
-                        <Text>Do you have pets?</Text>
-                        <Switch
-                        value={pets}
-                        onValueChange={(newValue) => setPets(newValue)}
-                        />
-                    </View>
-                    <TextInput
-                        placeholder="Normal wake up time"
-                        value={riseTime}
-                        onChangeText={setRiseTime} 
-                        style={LoginStyle.input}   
-                    />
-                    <TextInput 
-                        placeholder="Normal bedtime" 
-                        value={sleepTime} 
-                        onChangeText={setSleepTime} 
-                        style={LoginStyle.input}
+                    <Button 
+                        title="Save changes" 
+                        onPress={updateProfile} 
+                        style={AppStyle.button}
+                        color='green'  
                     />
                 </View>
             </ScrollView>
