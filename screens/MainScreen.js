@@ -23,7 +23,7 @@ export default function MainScreen({ navigation }) {
   };
 
   const toUtilities = () => {
-    navigation.navigate('Utilities', { serializableUser: serializableUser });
+    navigation.navigate('Utlilities', { serializableUser: serializableUser });
   };
 
   const logout = () => {

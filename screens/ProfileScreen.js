@@ -22,7 +22,6 @@ export default function ProfileScreen({ navigation, route }) {
     const [sleepTime, setSleepTime] = useState('');
     const [personalityType, setPersonalityType] = useState('');
 
-
     const { serializableUser } = route.params;
     const queryRef = query(collection(db, "UserData"), where("Email", "==", serializableUser.email));
 
@@ -90,7 +89,6 @@ export default function ProfileScreen({ navigation, route }) {
               <View style={MainStyle.headerTitle}>
                 <Text style={MainStyle.headerText}>Welcome</Text>
                 <Text style={MainStyle.headerSubText}>{firstName} {lastName}</Text>
-                <Text style={MainStyle.headerSubText}>{email}</Text>
               </View>
               <TouchableOpacity style={MainStyle.logoutContainer} onPress={toMain}>
                 <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/10196/10196993.png' }} />
