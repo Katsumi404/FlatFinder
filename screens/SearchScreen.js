@@ -95,8 +95,11 @@ export default function SearchScreen({ navigation, route }){
                   }>
                   <Picker.Item label="No Preference" value="no-location-pref"/>
                   <Picker.Item label="London" value="London"/>
-                  <Picker.Item label="Birmingham" value="Birmingham"/>
-                  <Picker.Item label="Bristol" value="Bristol"/>
+                  <Picker.Item label="Leeds" value="Leeds"/>
+                  <Picker.Item label="Netherlands" value="Netherlands"/>
+                  <Picker.Item label="Glasgow" value="Glasgow"/>
+                  <Picker.Item label="Frankfurt" value="Frankfurt"/>
+
                 </Picker>
                 
                 <Text style={SearchStyle.label}>Number of Rooms</Text>  
@@ -110,6 +113,7 @@ export default function SearchScreen({ navigation, route }){
                   <Picker.Item label="1" value="one-room" />
                   <Picker.Item label="2" value="two-rooms"/>
                   <Picker.Item label="3" value="three-rooms"/>
+                  <Picker.Item label="4" value="four-rooms"/>
                 </Picker>
 
                 <Text style={SearchStyle.label}>Extra Amenities</Text>
@@ -133,7 +137,7 @@ export default function SearchScreen({ navigation, route }){
                   }>
                   <Picker.Item label="No Preference" value="no-available-pref"/>
                   <Picker.Item label="Available" value="available"/>
-                  <Picker.Item label="Not Available" value="not-available"/>
+                  <Picker.Item label="Sold" value="sold"/>
                 </Picker>
                 <Button 
                   title="Close" 

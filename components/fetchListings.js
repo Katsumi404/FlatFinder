@@ -29,8 +29,10 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                         (
                             locationPref === "no-location-pref" ||
                             (locationPref === "London" && data.City === "London") ||
-                            (locationPref === "Birmingham" && data.City === "Birmingham") ||
-                            (locationPref === "Bristol" && data.City === "Bristol")
+                            (locationPref === "Leeds" && data.City === "Leeds") ||
+                            (locationPref === "Netherlands" && data.City === "Netherlands")||
+                            (locationPref === "Glasgow" && data.City === "Glasgow")||
+                            (locationPref === "Frankfurt" && data.City === "Frankfurt")
                         ) &&
                         (
                             amenitiesPref === "no-amenities-pref" ||
@@ -39,8 +41,8 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                         (
                             availabilityPref === "no-available-pref" ||
                             (
-                                (availabilityPref === "available" && data.Availability === "Ready to rent") ||
-                                (availabilityPref === "not-available" && data.Availability === "Immediate occupancy")
+                                (availabilityPref === "available" && data.Availability === "Available") ||
+                                (availabilityPref === "not-available" && data.Availability === "Sold")
                             )
                         ) &&
                         (
@@ -52,9 +54,10 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                         ) &&
                         (
                             roomPref === "no-room-pref" ||
-                            (roomPref === "one-room" && data.Rooms === "Studio flat") ||
-                            (roomPref === "two-rooms" && data.Rooms === "2-bed apartment") ||
-                            (roomPref === "three-rooms" && data.Rooms === "3-bed house")
+                            (roomPref === "one-room" && data.Rooms === "Studio flat" ||data.Rooms === "Studio" ||data.Rooms === 2) ||
+                            (roomPref === "two-rooms" && data.Rooms === 2) ||
+                            (roomPref === "three-rooms" && data.Rooms === 3) ||
+                            (roomPref === "four-rooms" && data.Rooms === 4)
                         )
                     ) {
                         documents.push({ id: doc.id, ...data });
