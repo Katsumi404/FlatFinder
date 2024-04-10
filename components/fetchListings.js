@@ -54,7 +54,7 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                         ) &&
                         (
                             roomPref === "no-room-pref" ||
-                            (roomPref === "one-room" && data.Rooms === "Studio flat" ||data.Rooms === "Studio" ||data.Rooms === 2) ||
+                            (roomPref === "one-room" && data.Rooms === "Studio flat" ||data.Rooms === "Studio" ||data.Rooms === 1) ||
                             (roomPref === "two-rooms" && data.Rooms === 2) ||
                             (roomPref === "three-rooms" && data.Rooms === 3) ||
                             (roomPref === "four-rooms" && data.Rooms === 4)
