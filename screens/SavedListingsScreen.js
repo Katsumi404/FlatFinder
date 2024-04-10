@@ -13,30 +13,21 @@ export default function SavedListingsScreen({ navigation, route }) {
     const emailVerified = serializableUser.emailVerified;
     const phoneNumber = serializableUser.phoneNumber;
 
-    const logout = () => {
-        signOut(auth).then(() => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Login' }],
-          });
-        });
-      };
+    const toMain = () => {
+        navigation.pop();
+    };
 
-      const handleViewProfile = () => {
+    const handleViewProfile = () => {
         navigation.navigate('Profile', { serializableUser: serializableUser });
       };
 
-      const renderHeader = () => {
+    const renderHeader = () => {
         return (
           <View style={MainStyle.header}>
             <View style={MainStyle.headerTitle}>
               <Text style={MainStyle.headerText}>Saved Listing</Text>
               <Text style={MainStyle.headerSubText}>Page!!</Text>
             </View>
-            <TouchableOpacity style={MainStyle.profileIcon} onPress={handleViewProfile}>
-              <Image style={MainStyle.profileImage} source={{ uri: 'https://img.icons8.com/ios/50/000000/user-male-circle.png' }} />
-              <Text style={MainStyle.profileText}>View Profile</Text>
-            </TouchableOpacity>
           </View>
         );
       };
@@ -44,9 +35,9 @@ export default function SavedListingsScreen({ navigation, route }) {
       const renderFooter = () => {
         return (
           <View style={MainStyle.footer}>
-            <TouchableOpacity style={MainStyle.logoutContainer} onPress={logout}>
-              <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/logout-512.png' }} />
-              <Text style={MainStyle.logoutText}>Logout</Text>
+            <TouchableOpacity style={MainStyle.logoutContainer} onPress={toMain}>
+                <Image style={MainStyle.logoImage} source={{ uri: 'https://cdn-icons-png.flaticon.com/128/10196/10196993.png' }} />
+                <Text style={MainStyle.logoutText}>Home</Text>
             </TouchableOpacity>
           </View>
         );
