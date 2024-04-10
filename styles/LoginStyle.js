@@ -27,4 +27,14 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     color: 'black',
   },  
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center', 
+    width: '100%', 
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    backgroundColor: 'white',
+  },
 });
