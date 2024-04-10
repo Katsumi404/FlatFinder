@@ -18,6 +18,10 @@ export default function MainScreen({ navigation }) {
     navigation.navigate('Search', { serializableUser: serializableUser });
   };
 
+  const toSavedListings = () => {
+    navigation.navigate('SavedListings', { serializableUser: serializableUser });
+  };
+
   const toMatchmaking = () => {
     navigation.navigate('Matchmaking', { serializableUser: serializableUser });
   };
@@ -93,7 +97,7 @@ export default function MainScreen({ navigation }) {
                   if (item.title === 'Search') {
                     toSearch();
                   } else if (item.title === 'Saved Listings') {
-                    // Implement logic to navigate to saved listings screen
+                    toSavedListings();
                   } else if (item.title === 'Utility Costs') {
                     toUtilities();
                   } else if (item.title === 'Matchmaking') {
