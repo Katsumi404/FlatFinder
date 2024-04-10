@@ -4,27 +4,19 @@ import backgroundImage from '../assets/background.jpg';
 import { Picker } from '@react-native-picker/picker';
 import MainStyle from '../styles/MainStyle.js';
 import SearchStyle from '../styles/SearchStyle.js';
-import Fetchistings from '../components/fetchListings.js';
+import FetchListings from '../components/fetchListings.js';
 
 export default function SearchScreen({ navigation, route }){
   const { serializableUser } = route.params;
   console.log(serializableUser)
   const [Search, setSearch] = useState("");
   const [filter, setFilter] = useState(false);
+
   const [pricePref, setPricePref] = useState("no-price-pref");
   const [roomPref, setRoomPref] = useState("no-room-pref");
-  const [sizePref, setSizePref] = useState("no-size-pref");
-  const [petPref, setPetPref] = useState("no-pet-pref");
-  const [availabilityPref, setAvailabilityPref] = useState("available");
-
-  const searched = () => {
-    if (Search !== ""){
-      fetchAll(Search);
-    }
-    else{
-      alert('Please enter in a search')
-    }
-  };
+  const [locationPref, setLocationPref] = useState("no-location-pref");
+  const [amenitiesPref, setAmenitiesPref] = useState("no-amenities-pref");
+  const [availabilityPref, setAvailabilityPref] = useState("no-available-pref");
 
   const toMain = () => {
     navigation.pop();
@@ -56,6 +48,15 @@ export default function SearchScreen({ navigation, route }){
       <View style={MainStyle.overlay}>
         {renderHeader()}
         <View style={SearchStyle.StyleSheet}>
+        <TextInput
+            style={SearchStyle.input}
+            placeholder="Search for flat"
+            placeholderTextColor="#999"
+            clearButtonMode='always'
+            value={Search}
+            onChangeText={setSearch}
+            maxLength={30}
+          />
           <Button 
             title="Filter" 
             onPress={() => setFilter(true)} 
@@ -77,57 +78,60 @@ export default function SearchScreen({ navigation, route }){
                 <Picker
                   style={SearchStyle.picker}
                   selectedValue={pricePref}
-                  onValueChange={(itemValue, itemIndex) =>
+                  onValueChange={(itemValue) =>
                     setPricePref(itemValue)
                   }>
-                  <Picker.Item label="Per Month" value="per-month"/>
-                  <Picker.Item label="Per Week" value="per-week"/>
+                  <Picker.Item label="No Price Preference" value="no-price-pref"/>
+                  <Picker.Item label=">1500" value="more-than-price"/>
+                  <Picker.Item label="<1500" value="less-than-price"/>
                 </Picker>
 
+                <Text style={SearchStyle.label}>Location</Text>  
+                <Picker
+                  style={SearchStyle.picker}
+                  selectedValue={locationPref}
+                  onValueChange={(itemValue) =>
+                    setLocationPref(itemValue)
+                  }>
+                  <Picker.Item label="No Preference" value="no-location-pref"/>
+                  <Picker.Item label="London" value="London"/>
+                  <Picker.Item label="Birmingham" value="Birmingham"/>
+                  <Picker.Item label="Bristol" value="Bristol"/>
+                </Picker>
+                
                 <Text style={SearchStyle.label}>Number of Rooms</Text>  
                 <Picker
                   style={SearchStyle.picker}
                   selectedValue={roomPref}
-                  onValueChange={(itemValue, itemIndex) =>
+                  onValueChange={(itemValue) =>
                     setRoomPref(itemValue)
                   }>
                   <Picker.Item label="No Preference" value="no-room-pref"/>
-                  <Picker.Item label="1" value="one-room"/>
+                  <Picker.Item label="1" value="one-room" />
                   <Picker.Item label="2" value="two-rooms"/>
                   <Picker.Item label="3" value="three-rooms"/>
                 </Picker>
-                
-                <Text style={SearchStyle.label}>Size</Text>
+
+                <Text style={SearchStyle.label}>Extra Amenities</Text>
                 <Picker
                   style={SearchStyle.picker}
-                  selectedValue={sizePref}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSizePref(itemValue)
+                  selectedValue={amenitiesPref}
+                  onValueChange={(itemValue) =>
+                    setAmenitiesPref(itemValue)
                   }>
-                  <Picker.Item label="No Preference" value="no-size-pref"/>
-                  <Picker.Item label="Smallest To Largest" value="small-to-largest"/>
-                  <Picker.Item label="Largest to Smallest" value="largest-to-smallest"/>
+                  <Picker.Item label="No Preference" value="no-amenities-pref"/>
+                  <Picker.Item label="Amenities Included" value="amenities"/>
+                  <Picker.Item label="No Amenities Included" value="no-amenities"/>
                 </Picker>
-                
-                <Text style={SearchStyle.label}>Pet Friendliness</Text>
-                <Picker
-                  style={SearchStyle.picker}
-                  selectedValue={petPref}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setPetPref(itemValue)
-                  }>
-                  <Picker.Item label="No Preference" value="no-pet-pref"/>
-                  <Picker.Item label="Yes" value="yes-pets"/>
-                  <Picker.Item label="No" value="no-pets"/>
-                </Picker>
-                
+                                
                 <Text style={SearchStyle.label}>Availablity</Text>
                 <Picker
                   style={SearchStyle.picker}
                   selectedValue={availabilityPref}
-                  onValueChange={(itemValue, itemIndex) =>
+                  onValueChange={(itemValue) =>
                     setAvailabilityPref(itemValue)
                   }>
+                  <Picker.Item label="No Preference" value="no-available-pref"/>
                   <Picker.Item label="Available" value="available"/>
                   <Picker.Item label="Not Available" value="not-available"/>
                 </Picker>
@@ -140,7 +144,12 @@ export default function SearchScreen({ navigation, route }){
             </View>
           </Modal>
 
-          <Fetchistings searchQuery={Search} serializableUser={serializableUser} />
+          <FetchListings searchQuery={Search} serializableUser={serializableUser} 
+          locationPref={locationPref} 
+          amenitiesPref={amenitiesPref} 
+          availabilityPref={availabilityPref} 
+          roomPref={roomPref}
+          pricePref={pricePref}/>
         </View>
         {renderFooter()}
       </View>

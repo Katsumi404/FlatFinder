@@ -5,26 +5,60 @@ import SearchStyle from '../styles/SearchStyle.js';
 import { db } from "../firebase.js"; 
 import { collection, getDocs } from "firebase/firestore";
 
-function FetchListings({ searchQuery, serializableUser }) {
+function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesPref, availabilityPref, roomPref, pricePref }) {
     const [allDocs, setAllDocs] = useState([]);
 
     useEffect(() => {
-        if (searchQuery !== "") {
+        if (searchQuery.length >= 3) {
           fetchAll(searchQuery);
         }
     }, [searchQuery]);
-    
+
 
     function fetchAll() {
-        // Reference to the collection you want to fetch documents from
         const collectionRef = collection(db, "PropertyListings");
-  
+    
         // Fetch documents
         getDocs(collectionRef)
             .then((querySnapshot) => {
                 const documents = [];
                 querySnapshot.forEach((doc) => {
-                    documents.push({ id: doc.id, ...doc.data() });
+                    const data = doc.data();
+                    if (
+                        data.Title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                        (
+                            locationPref === "no-location-pref" ||
+                            (locationPref === "London" && data.City === "London") ||
+                            (locationPref === "Birmingham" && data.City === "Birmingham") ||
+                            (locationPref === "Bristol" && data.City === "Bristol")
+                        ) &&
+                        (
+                            amenitiesPref === "no-amenities-pref" ||
+                            (amenitiesPref === "amenities" && (data.Amenities != "" || data.Amenities === ""))
+                        ) &&
+                        (
+                            availabilityPref === "no-available-pref" ||
+                            (
+                                (availabilityPref === "available" && data.Availability === "Ready to rent") ||
+                                (availabilityPref === "not-available" && data.Availability === "Immediate occupancy")
+                            )
+                        ) &&
+                        (
+                            pricePref === "no-price-pref" ||
+                            (
+                                (pricePref === "more-than-price" && data.Price >= 1500) ||
+                                (pricePref === "less-than-price" && data.Price <= 1500)
+                            )
+                        ) &&
+                        (
+                            roomPref === "no-room-pref" ||
+                            (roomPref === "one-room" && data.Rooms === "Studio flat") ||
+                            (roomPref === "two-rooms" && data.Rooms === "2-bed apartment") ||
+                            (roomPref === "three-rooms" && data.Rooms === "3-bed house")
+                        )
+                    ) {
+                        documents.push({ id: doc.id, ...data });
+                    }
                 });
                 setAllDocs(documents);
                 console.log("Documents fetched:", documents);
@@ -33,7 +67,7 @@ function FetchListings({ searchQuery, serializableUser }) {
                 console.error("Error fetching documents: ", error);
             });
     }
-
+    
     function clear() {
         setAllDocs([]);
     }
