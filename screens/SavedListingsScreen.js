@@ -7,16 +7,13 @@ import SearchStyle from '../styles/SearchStyle.js'; // Ensure this is imported
 import backgroundImage from '../assets/background.jpg';
 
 function FetchListings({ route, navigation }) {
-    const [viewSavedListings, setViewSavedListings] = useState(false);
     const [savedListings, setSavedListings] = useState([]);
     const { serializableUser } = route.params;
     const userId = serializableUser.uid;
 
     useEffect(() => {
-        if (viewSavedListings) {
-            fetchSavedListings();
-        }
-    }, [viewSavedListings]);
+        fetchSavedListings();
+    }, []);
 
     async function fetchSavedListings() {
         const savedCollectionRef = collection(db, "SavedListings");
@@ -64,29 +61,20 @@ function FetchListings({ route, navigation }) {
         <ImageBackground source={backgroundImage} style={MainStyle.backgroundImage}>
             <View style={MainStyle.overlay}>
                 {renderHeader()}
-                <Button 
-                    title="View Saved Listings" 
-                    onPress={() => setViewSavedListings(!viewSavedListings)}
-                    color="blue"
-                />
-                {viewSavedListings ? (
-                    <ScrollView>
-                        {savedListings.map((listing) => (
-                            <View key={listing.id} style={SearchStyle.listItem}>
-                                <Image source={{ uri: listing.Image }} style={SearchStyle.image} />
-                                <View style={SearchStyle.textContainer}>
-                                    <Text style={SearchStyle.listItemTitle}>{listing.Title || "No Title Available"}</Text>
-                                    <Text style={SearchStyle.listItemText}>Amenities: {listing.Amenities}</Text>
-                                    <Text style={SearchStyle.listItemText}>Availability: {listing.Availability}</Text>
-                                    <Text style={SearchStyle.listItemText}>City: {listing.City}</Text>
-                                    {/* More details as needed */}
-                                </View>
+                <ScrollView>
+                    {savedListings.map((listing) => (
+                        <View key={listing.id} style={SearchStyle.listItem}>
+                            <Image source={{ uri: listing.Image }} style={SearchStyle.image} />
+                            <View style={SearchStyle.textContainer}>
+                                <Text style={SearchStyle.listItemTitle}>{listing.Title || "No Title Available"}</Text>
+                                <Text style={SearchStyle.listItemText}>Amenities: {listing.Amenities}</Text>
+                                <Text style={SearchStyle.listItemText}>Availability: {listing.Availability}</Text>
+                                <Text style={SearchStyle.listItemText}>City: {listing.City}</Text>
+                                {/* More details as needed */}
                             </View>
-                        ))}
-                    </ScrollView>
-                ) : (
-                    <Text>Search Listings Placeholder</Text>
-                )}
+                        </View>
+                    ))}
+                </ScrollView>
                 {renderFooter()}
             </View>
         </ImageBackground>
