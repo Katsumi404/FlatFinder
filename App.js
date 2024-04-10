@@ -8,6 +8,7 @@ import RegisterScreen from "./screens/RegisterScreen.js";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen.js";
 import MainScreen from "./screens/MainScreen.js";
 import ProfileScreen from './screens/ProfileScreen.js';
+import ExtraProfileScreen from './screens/ExtraProfileScreen.js';
 import SearchScreen from './screens/SearchScreen.js';
 import SavedListingsScreen from './screens/SavedListingsScreen.js';
 import UtilitiesScreen from './screens/UtilitiesScreen.js';
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{headerShown: false}} />
         <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}} />
         <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}} />
+        <Stack.Screen name="ExtraProfile" component={ExtraProfileScreen} options={{headerShown: false}} />
         <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}} />
         <Stack.Screen name="SavedListings" component={SavedListingsScreen} options={{headerShown: false}} />
         <Stack.Screen name="Utlilities" component={UtilitiesScreen} options={{headerShown: false}} />
