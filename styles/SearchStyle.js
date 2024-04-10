@@ -51,8 +51,7 @@ export default StyleSheet.create({
   ,
   picker:{
     textAlign:'center',
-    width:'150',
-    flex :'1'
+    width:'150'
   },
   label:{
     fontWeight:'bold'
