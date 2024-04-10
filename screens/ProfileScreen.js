@@ -13,7 +13,7 @@ export default function ProfileScreen({ navigation, route }) {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState(new Date());
+    let dateOfBirth = new Date();
     const [gender, setGender] = useState('');
     const [dietaryRestrictions, setDietaryRestrictions] = useState([]);
     const [smoking, setSmoking] = useState(false);
@@ -34,7 +34,7 @@ export default function ProfileScreen({ navigation, route }) {
             setEmail(userData.Email);
             const date = new Date(userData.DoB);
             const formattedDate = date.toLocaleDateString();
-            setDateOfBirth(formattedDate);
+            dateOfBirth = formattedDate;
             setFirstName(userData.FirstName);
             setLastName(userData.LastName);
             setGender(userData.Gender);

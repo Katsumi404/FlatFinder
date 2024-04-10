@@ -8,7 +8,6 @@ import FetchListings from '../components/fetchListings.js';
 
 export default function SearchScreen({ navigation, route }){
   const { serializableUser } = route.params;
-  console.log(serializableUser)
   const [Search, setSearch] = useState("");
   const [filter, setFilter] = useState(false);
 
@@ -148,12 +147,15 @@ export default function SearchScreen({ navigation, route }){
             </View>
           </Modal>
 
-          <FetchListings searchQuery={Search} serializableUser={serializableUser} 
-          locationPref={locationPref} 
-          amenitiesPref={amenitiesPref} 
-          availabilityPref={availabilityPref} 
-          roomPref={roomPref}
-          pricePref={pricePref}/>
+          <FetchListings 
+            searchQuery={Search} 
+            serializableUser={serializableUser} 
+            locationPref={locationPref} 
+            amenitiesPref={amenitiesPref} 
+            availabilityPref={availabilityPref} 
+            roomPref={roomPref}
+            pricePref={pricePref}
+          />
         </View>
         {renderFooter()}
       </View>
