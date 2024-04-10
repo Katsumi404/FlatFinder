@@ -3,11 +3,11 @@ import { Button, View, Text, Image, ScrollView } from 'react-native';
 import AppStyle from '../styles/AppStyle.js';
 import SearchStyle from '../styles/SearchStyle.js';
 import { db } from "../firebase.js"; 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
 function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesPref, availabilityPref, roomPref, pricePref }) {
     const [allDocs, setAllDocs] = useState([]);
-
+    const uid =  serializableUser.uid;
     useEffect(() => {
         if (searchQuery.length >= 3) {
           fetchAll(searchQuery);
@@ -17,7 +17,6 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
 
     function fetchAll() {
         const collectionRef = collection(db, "PropertyListings");
-    
         // Fetch documents
         getDocs(collectionRef)
             .then((querySnapshot) => {
@@ -75,9 +74,19 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
         setAllDocs([]);
     }
 
-    function saveListing() {
-        alert('Saved listing.');
-    }
+    const saveListing = async (listingId) => {
+        // Here listingId is the ID of the listing to be saved
+        try {
+            await addDoc(collection(db, "SavedListings"), {
+                userId: uid,
+                listingId: listingId,
+            });
+            alert('Listing saved successfully.');
+        } catch (error) {
+            console.error("Error saving the listing: ", error);
+            alert('Error saving listing.');
+        }
+    };
 
     return (
         <View>
@@ -99,10 +108,10 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                             <Text style={SearchStyle.listItemText}>Rooms: {doc.Rooms}</Text>
                             <Button 
                                 title="Save listing" 
-                                onPress={saveListing} 
+                                onPress={() => saveListing(doc.id)} // Correctly pass a function
                                 style={AppStyle.button} 
                                 color='green' 
-                            /> 
+                            />
                         </View>
                     </View>
                 </View>
