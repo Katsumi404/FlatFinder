@@ -58,6 +58,7 @@ export default function RegisterScreen({ navigation }) {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       inputData();
+      sendEmailVerification(auth.currentUser);
       navigation.navigate('Main', {user: userCredential.user});
     })
     .catch((error) => {
