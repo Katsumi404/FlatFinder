@@ -9,7 +9,13 @@ import { db } from "../firebase.js";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import UpdateUser from '../components/updateUser.js';
 
-const locations = ["London", "Leeds", "Glasgow", "Frankfurt", "Brighton", "Dublin"]
+const locations = [
+    "London", "Leeds", "Glasgow", "Frankfurt", "Brighton", "Dublin",
+    "Luxembourg", "Netherlands", "Limerick", "Switzerland", "Kraków",
+    "Shanghai", "Hong Kong", "Singapore", "Sydney", "Melbourne", "Auckland",
+    "South Africa", "Austin", "Charlotte", "New York", "St Petersburg",
+    "Toronto", "Montreal"
+  ];
 
 export default function ProfileScreen({ navigation, route }) {
     const [selectedLocation, setSelectedLocation] = useState('');
