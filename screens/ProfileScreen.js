@@ -4,11 +4,15 @@ import backgroundImage from '../assets/background.jpg';
 import AppStyle from '../styles/AppStyle.js';
 import MainStyle from '../styles/MainStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
+import { Picker } from '@react-native-picker/picker';
 import { db } from "../firebase.js"; 
 import { collection, query, where, getDocs } from "firebase/firestore";
 import UpdateUser from '../components/updateUser.js';
 
+const locations = ["London", "Leeds", "Glasgow", "Frankfurt", "Brighton", "Dublin"]
+
 export default function ProfileScreen({ navigation, route }) {
+    const [selectedLocation, setSelectedLocation] = useState('');
     const [uid, setUid] = useState('');
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -32,11 +36,16 @@ export default function ProfileScreen({ navigation, route }) {
             setFirstName(userData.FirstName);
             setLastName(userData.LastName);
             setGender(userData.Gender);
+            if ('Location' in userData) setSelectedLocation(userData.selectedLocation);
         });
     })
     .catch((error) => {
         console.error("Error getting documents:", error);
     });
+    
+    const handleLocationChange = (location) => {
+        setSelectedLocation(location);
+      };
 
     const toMain = () => {
         navigation.pop();
@@ -61,6 +70,7 @@ export default function ProfileScreen({ navigation, route }) {
             LastName: lastName || undefined,
             DateOfBirth: dateOfBirth || undefined,
             Gender: gender || undefined,
+            Location: selectedLocation || undefined,
         };
         UpdateUser(uid, data);
     }
@@ -111,12 +121,32 @@ export default function ProfileScreen({ navigation, route }) {
                         style={[LoginStyle.dateInput]}
                         editable={false} // This prevents editing
                     />
-                    <TextInput 
-                        placeholder="Gender" 
-                        value={gender} 
-                        onChangeText={setGender} 
-                        style={LoginStyle.input}
-                    />
+                    <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10 }}>
+                        <Picker
+                            selectedValue={gender}
+                            onValueChange={(itemValue) => setGender(itemValue)}
+                            style={LoginStyle.input}
+                            >
+                            <Picker.Item label="Male" value="Male" />
+                            <Picker.Item label="Female" value="Female" />
+                            <Picker.Item label="Other" value="Other" />
+                        </Picker>
+                    </View>
+                    <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10 }}>
+                        <Text>Select a location:</Text>
+                        <Picker
+                            selectedValue={selectedLocation}
+                            onValueChange={(itemValue) => handleLocationChange(itemValue)}
+                        >
+                            <Picker.Item label="-- Select a location --" value="" />
+                            {locations.map((location, index) => (
+                            <Picker.Item key={index} label={location} value={location} />
+                            ))}
+                        </Picker>
+                        {selectedLocation ? (
+                            <Text>You selected: {selectedLocation}</Text>
+                        ) : null}
+                    </View>
                     <Button 
                         title="More options" 
                         onPress={toExtraProfile} 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TextInput, Button, ImageBackground, Text } from 'react-native';
+import { TextInput, Button, ImageBackground, Text, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker';
 import InlineTextButton from '../components/inlineTextButton.js';
 import AppStyle from '../styles/AppStyle.js';
 import LoginStyle from '../styles/LoginStyle.js';
@@ -121,12 +122,17 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={setLastName} 
         style={LoginStyle.input}
       />
-      <TextInput 
-        placeholder="Gender" 
-        value={gender} 
-        onChangeText={setGender} 
-        style={LoginStyle.input}
-      />
+      <View style={{ backgroundColor: 'white', borderRadius: 10, width: 350 }}>
+        <Picker
+          selectedValue={gender}
+          onValueChange={(itemValue) => setGender(itemValue)}
+          style={LoginStyle.input}
+          >
+          <Picker.Item label="Male" value="Male" />
+          <Picker.Item label="Female" value="Female" />
+          <Picker.Item label="Other" value="Other" />
+        </Picker>
+      </View>
       
       <TextInput
         placeholder="Date of Birth"
