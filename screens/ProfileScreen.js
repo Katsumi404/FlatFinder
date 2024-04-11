@@ -48,6 +48,10 @@ export default function ProfileScreen({ navigation, route }) {
     .catch((error) => {
         console.error("Error getting documents:", error);
     });
+
+    const handleGenderChange = (location) => {
+        setSelectedLocation(location);
+      };
     
     const handleLocationChange = (location) => {
         setSelectedLocation(location);
@@ -130,7 +134,7 @@ export default function ProfileScreen({ navigation, route }) {
                     <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10 }}>
                         <Picker
                             selectedValue={gender}
-                            onValueChange={(itemValue) => setGender(itemValue)}
+                            onValueChange={(itemValue) => handleGenderChange(itemValue)}
                             style={LoginStyle.input}
                             >
                             <Picker.Item label="Male" value="Male" />
@@ -141,16 +145,16 @@ export default function ProfileScreen({ navigation, route }) {
                     <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 10 }}>
                         <Text>Select a location:</Text>
                         <Picker
-                            selectedValue={selectedLocation}
-                            onValueChange={(itemValue) => handleLocationChange(itemValue)}
+                        selectedValue={selectedLocation}
+                        onValueChange={(itemValue) => handleLocationChange(itemValue)}
                         >
-                            <Picker.Item label="-- Select a location --" value="" />
-                            {locations.map((location, index) => (
+                        <Picker.Item label="-- Select a location --" value="" />
+                        {locations.map((location, index) => (
                             <Picker.Item key={index} label={location} value={location} />
-                            ))}
+                        ))}
                         </Picker>
                         {selectedLocation ? (
-                            <Text>You selected: {selectedLocation}</Text>
+                        <Text>You selected: {selectedLocation}</Text>
                         ) : null}
                     </View>
                     <Button 
