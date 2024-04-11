@@ -47,7 +47,6 @@ export default function MatchmakingScreen({ navigation, route }) {
     const handleNameChange = (name, index) => {
         setPerson2(name);
         setIndex(index);
-        console.log(firstNames[index-1], lastNames[index-1]);
     };
 
     // For Person 1

@@ -32,24 +32,11 @@ const UserDetails = ({ firstName, lastName }) => {
                     setDateOfBirth(userData.dateOfBirth || new Date());
                     setGender(userData.gender || '');
                     setDietaryRestrictions(userData.dietaryRestrictions || []);
-                    if ('DietaryRestrictions' in userData) {
-                        setDietaryRestrictions(userData.DietaryRestrictions);
-                    }
-                    if ('Smoking' in userData) {
-                        setSmoking(userData.Smoking);
-                    }
-                    if ('Pets' in userData) {
-                        setPets(userData.Pets);
-                    }
-                    if ('RiseTime' in userData) {
-                        setRiseTime(userData.RiseTime);
-                    }
-                    if ('SleepTime' in userData) {
-                        setSleepTime(userData.SleepTime);
-                    }
-                    if ('PersonalityType' in userData) {
-                        setPersonalityType(userData.PersonalityType);
-                    }
+                    setSmoking(userData.hasOwnProperty('smoking') ? userData.smoking : false);
+                    setPets(userData.hasOwnProperty('pets') ? userData.pets : false);
+                    setRiseTime(userData.riseTime || '');
+                    setSleepTime(userData.sleepTime || '');
+                    setPersonalityType(userData.personalityType || '');
                 } else {
                     console.log("No user found with the provided first and last name.");
                 }
