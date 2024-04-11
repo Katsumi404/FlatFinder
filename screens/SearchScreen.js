@@ -47,15 +47,6 @@ export default function SearchScreen({ navigation, route }){
       <View style={MainStyle.overlay}>
         {renderHeader()}
         <View style={SearchStyle.StyleSheet}>
-        <TextInput
-            style={SearchStyle.input}
-            placeholder="Search for flat"
-            placeholderTextColor="#999"
-            clearButtonMode='always'
-            value={Search}
-            onChangeText={setSearch}
-            maxLength={30}
-          />
           <Button 
             title="Filter" 
             onPress={() => setFilter(true)} 

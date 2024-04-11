@@ -10,10 +10,9 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
     const uid =  serializableUser.uid;
     useEffect(() => {
         if (searchQuery.length >= 3) {
-          fetchAll(searchQuery);
+          fetchAll();
         }
-    }, [searchQuery]);
-
+    }, [searchQuery, locationPref, amenitiesPref, availabilityPref, roomPref, pricePref]);
 
     function fetchAll() {
         const collectionRef = collection(db, "PropertyListings");
@@ -53,7 +52,7 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                         ) &&
                         (
                             roomPref === "no-room-pref" ||
-                            (roomPref === "one-room" && data.Rooms === "Studio flat" ||data.Rooms === "Studio" ||data.Rooms === 1) ||
+                            (roomPref === "one-room" && (data.Rooms === "Studio flat" || data.Rooms === "Studio" || data.Rooms === 1)) ||
                             (roomPref === "two-rooms" && data.Rooms === 2) ||
                             (roomPref === "three-rooms" && data.Rooms === 3) ||
                             (roomPref === "four-rooms" && data.Rooms === 4)
@@ -90,40 +89,45 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
 
     return (
         <View>
-        <ScrollView>
-            {/* Display fetched documents */}
-            {allDocs.map((doc) => (
-                <View key={doc.id} style={SearchStyle.listItem}>
-                    <View style={SearchStyle.titleContainer}>
-                        <Text style={SearchStyle.listItemTitle}>{doc.Title}</Text>
-                    </View>
-                    <View style={SearchStyle.contentContainer}>
-                        <View style={SearchStyle.imageContainer}>
-                            <Image source={{ uri: doc.Image }} style={SearchStyle.image} />
-                        </View>
-                        <View style={SearchStyle.textContainer}>
-                            <Text style={SearchStyle.listItemText}>Price: £{doc.Price}</Text>
-                            <Text style={SearchStyle.listItemText}>Address: {doc.Address}</Text>
-                            <Text style={SearchStyle.listItemText}>Availability: {doc.Availability}</Text>
-                            <Text style={SearchStyle.listItemText}>Rooms: {doc.Rooms}</Text>
-                            <Button 
-                                title="Save listing" 
-                                onPress={() => saveListing(doc.id)} // Correctly pass a function
-                                style={AppStyle.button} 
-                                color='green' 
-                            />
-                        </View>
-                    </View>
-                </View>
-            ))}
-            <Button 
-                title="Clear Listings" 
-                onPress={clear} 
-                color='green' 
+            <Button
+                title="Search"
+                onPress={fetchAll}
+                color="green"
             />
-    </ScrollView>
-    </View>
+            <ScrollView>
+                {/* Display fetched documents */}
+                {allDocs.map((doc) => (
+                    <View key={doc.id} style={SearchStyle.listItem}>
+                        <View style={SearchStyle.titleContainer}>
+                            <Text style={SearchStyle.listItemTitle}>{doc.Title}</Text>
+                        </View>
+                        <View style={SearchStyle.contentContainer}>
+                            <View style={SearchStyle.imageContainer}>
+                                <Image source={{ uri: doc.Image }} style={SearchStyle.image} />
+                            </View>
+                            <View style={SearchStyle.textContainer}>
+                                <Text style={SearchStyle.listItemText}>Price: £{doc.Price}</Text>
+                                <Text style={SearchStyle.listItemText}>Address: {doc.Address}</Text>
+                                <Text style={SearchStyle.listItemText}>Availability: {doc.Availability}</Text>
+                                <Text style={SearchStyle.listItemText}>Rooms: {doc.Rooms}</Text>
+                                <Button
+                                    title="Save listing"
+                                    onPress={() => saveListing(doc.id)}
+                                    style={AppStyle.button}
+                                    color='green'
+                                />
+                            </View>
+                        </View>
+                    </View>
+                ))}
+                <Button
+                    title="Clear Listings"
+                    onPress={clear}
+                    color='green'
+                />
+            </ScrollView>
+        </View>
     );
-}
+  } 
 
 export default FetchListings;
