@@ -1,6 +1,33 @@
 import { StyleSheet } from "react-native-web";
 
 export default StyleSheet.create({
+  
+  buttonGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 7.5,
+    borderRadius: 5,
+    flex: 1,
+  },
+  selectedButton: {
+    backgroundColor: 'green',
+    paddingHorizontal: 7.5,
+    borderRadius: 5,
+    flex: 1,
+  },
+
+  buttonText: {
+    color: 'black',
+    fontSize: 7.5,
+  },
+  selectedButtonText: {
+    color: 'white',
+    fontSize: 20,
+  },
   container: {
     flex: 1,
     padding: 10,
@@ -51,8 +78,7 @@ export default StyleSheet.create({
   ,
   picker:{
     textAlign:'center',
-    width:'150',
-    flex :'1'
+    width:'150'
   },
   label:{
     fontWeight:'bold'
@@ -63,7 +89,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign:'center'
   },
-  centeredView: {
+  centredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -75,5 +101,6 @@ export default StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
+    width: '75%'
   }
 });

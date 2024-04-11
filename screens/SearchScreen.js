@@ -71,73 +71,149 @@ export default function SearchScreen({ navigation, route }){
               setFilter(!filter);
             }}
           >
-            <View style={SearchStyle.centeredView}>
+            <View style={SearchStyle.centredView}>
               <View style={SearchStyle.modalView}>
-                <Text style={SearchStyle.label}>Price</Text>
-                <Picker
-                  style={SearchStyle.picker}
-                  selectedValue={pricePref}
-                  onValueChange={(itemValue) =>
-                    setPricePref(itemValue)
-                  }>
-                  <Picker.Item label="No Price Preference" value="no-price-pref"/>
-                  <Picker.Item label=">1500" value="more-than-price"/>
-                  <Picker.Item label="<1500" value="less-than-price"/>
-                </Picker>
+              <Text style={SearchStyle.label}>Price</Text>
+              <View style={SearchStyle.buttonGroup}>
+                <TouchableOpacity
+                  style={pricePref === "no-price-pref" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setPricePref("no-price-pref")}
+                >
+                  <Text style={SearchStyle.buttonText}>No Price Preference</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={pricePref === "more-than-price" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setPricePref("more-than-price")}
+                >
+                  <Text style={SearchStyle.buttonText}>More than 1500</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={pricePref === "less-than-price" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setPricePref("less-than-price")}
+                >
+                  <Text style={SearchStyle.buttonText}>Less than 1500</Text>
+                </TouchableOpacity>
+              </View>
 
-                <Text style={SearchStyle.label}>Location</Text>  
-                <Picker
-                  style={SearchStyle.picker}
-                  selectedValue={locationPref}
-                  onValueChange={(itemValue) =>
-                    setLocationPref(itemValue)
-                  }>
-                  <Picker.Item label="No Preference" value="no-location-pref"/>
-                  <Picker.Item label="London" value="London"/>
-                  <Picker.Item label="Leeds" value="Leeds"/>
-                  <Picker.Item label="Netherlands" value="Netherlands"/>
-                  <Picker.Item label="Glasgow" value="Glasgow"/>
-                  <Picker.Item label="Frankfurt" value="Frankfurt"/>
+              <Text style={SearchStyle.label}>Location</Text>
+              <View style={SearchStyle.buttonGroup}>
+                <TouchableOpacity
+                  style={locationPref === "no-location-pref" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setLocationPref("no-location-pref")}
+                >
+                  <Text style={SearchStyle.buttonText}>No Preference</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={locationPref === "London" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setLocationPref("London")}
+                >
+                  <Text style={SearchStyle.buttonText}>London</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={locationPref === "Leeds" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setLocationPref("Leeds")}
+                >
+                  <Text style={SearchStyle.buttonText}>Leeds</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={locationPref === "Netherlands" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setLocationPref("Netherlands")}
+                >
+                  <Text style={SearchStyle.buttonText}>Netherlands</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={locationPref === "Glasgow" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setLocationPref("Glasgow")}
+                >
+                  <Text style={SearchStyle.buttonText}>Glasgow</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={locationPref === "Frankfurt" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setLocationPref("Frankfurt")}
+                >
+                  <Text style={SearchStyle.buttonText}>Frankfurt</Text>
+                </TouchableOpacity>
+              </View>
 
-                </Picker>
                 
-                <Text style={SearchStyle.label}>Number of Rooms</Text>  
-                <Picker
-                  style={SearchStyle.picker}
-                  selectedValue={roomPref}
-                  onValueChange={(itemValue) =>
-                    setRoomPref(itemValue)
-                  }>
-                  <Picker.Item label="No Preference" value="no-room-pref"/>
-                  <Picker.Item label="1" value="one-room" />
-                  <Picker.Item label="2" value="two-rooms"/>
-                  <Picker.Item label="3" value="three-rooms"/>
-                  <Picker.Item label="4" value="four-rooms"/>
-                </Picker>
+              <Text style={SearchStyle.label}>Number of Rooms</Text>
+              <View style={SearchStyle.buttonGroup}>
+                <TouchableOpacity
+                  style={roomPref === "no-room-pref" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setRoomPref("no-room-pref")}
+                >
+                  <Text style={SearchStyle.buttonText}>No Preference</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={roomPref === "one-room" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setRoomPref("one-room")}
+                >
+                  <Text style={SearchStyle.buttonText}>1</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={roomPref === "two-rooms" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setRoomPref("two-rooms")}
+                >
+                  <Text style={SearchStyle.buttonText}>2</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={roomPref === "three-rooms" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setRoomPref("three-rooms")}
+                >
+                  <Text style={SearchStyle.buttonText}>3</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={roomPref === "four-rooms" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setRoomPref("four-rooms")}
+                >
+                  <Text style={SearchStyle.buttonText}>4</Text>
+                </TouchableOpacity>
+              </View>
 
-                <Text style={SearchStyle.label}>Extra Amenities</Text>
-                <Picker
-                  style={SearchStyle.picker}
-                  selectedValue={amenitiesPref}
-                  onValueChange={(itemValue) =>
-                    setAmenitiesPref(itemValue)
-                  }>
-                  <Picker.Item label="No Preference" value="no-amenities-pref"/>
-                  <Picker.Item label="Amenities Included" value="amenities"/>
-                  <Picker.Item label="No Amenities Included" value="no-amenities"/>
-                </Picker>
+              <Text style={SearchStyle.label}>Extra Amenities</Text>
+              <View style={SearchStyle.buttonGroup}>
+                <TouchableOpacity
+                  style={amenitiesPref === "no-amenities-pref" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setAmenitiesPref("no-amenities-pref")}
+                >
+                  <Text style={SearchStyle.buttonText}>No Preference</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={amenitiesPref === "amenities" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setAmenitiesPref("amenities")}
+                >
+                  <Text style={SearchStyle.buttonText}>Amenities Included</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={amenitiesPref === "no-amenities" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setAmenitiesPref("no-amenities")}
+                >
+                  <Text style={SearchStyle.buttonText}>No Amenities Included</Text>
+                </TouchableOpacity>
+              </View>
                                 
-                <Text style={SearchStyle.label}>Availablity</Text>
-                <Picker
-                  style={SearchStyle.picker}
-                  selectedValue={availabilityPref}
-                  onValueChange={(itemValue) =>
-                    setAvailabilityPref(itemValue)
-                  }>
-                  <Picker.Item label="No Preference" value="no-available-pref"/>
-                  <Picker.Item label="Available" value="available"/>
-                  <Picker.Item label="Sold" value="sold"/>
-                </Picker>
+              <Text style={SearchStyle.label}>Availability</Text>
+              <View style={SearchStyle.buttonGroup}>
+                <TouchableOpacity
+                  style={availabilityPref === "no-available-pref" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setAvailabilityPref("no-available-pref")}
+                >
+                  <Text style={SearchStyle.buttonText}>No Preference</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={availabilityPref === "available" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setAvailabilityPref("available")}
+                >
+                  <Text style={SearchStyle.buttonText}>Available</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={availabilityPref === "sold" ? SearchStyle.selectedButton : SearchStyle.button}
+                  onPress={() => setAvailabilityPref("sold")}
+                >
+                  <Text style={SearchStyle.buttonText}>Sold</Text>
+                </TouchableOpacity>
+              </View>
+
                 <Button 
                   title="Close" 
                   onPress={() => setFilter(!filter)} 
