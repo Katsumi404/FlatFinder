@@ -1,81 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, TextInput, StyleSheet } from 'react-native';
+import backgroundImage from '../assets/background.jpg';
+import MainStyle from '../styles/MainStyle.js';
 
-const UtilitiesScreen = ({ navigate, route }) => {
-  const [area, setArea] = useState('');
-  const [councilTax, setCouncilTax] = useState(null);
-  const [electricityBill, setElectricityBill] = useState(null);
-  const [waterBill, setWaterBill] = useState(null);
-
-  
-  const fetchUtilityData = async (selectedArea) => {
-    
-  };
-
-  
-  const handleAreaInput = (text) => {
-    setArea(text);
-  };
-
-  
-  useEffect(() => {
-    if (area) {
-      fetchUtilityData(area);
-    }
-  }, [area]);
+const UtilitiesScreen = ({ navigation }) => {
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Utility Bills</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter the area you're looking for"
-        onChangeText={handleAreaInput}
-        value={area}
-      />
-      <View style={styles.billContainer}>
-        <Text style={styles.billText}>Council Tax:</Text>
-        <Text style={styles.billText}>{councilTax}</Text>
+    <ImageBackground source={backgroundImage} style={MainStyle.backgroundImage}>
+      <View style={MainStyle.overlay}>
+        {/* Header */}
+        <View style={MainStyle.header}>
+          <View style={MainStyle.headerTitle}>
+            <Text style={MainStyle.headerText}>Utility Bills</Text>
+          </View>
+        </View>
+        
+        {/* Search Bar */}
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.searchInput}
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+            placeholder="Search..."
+          />
+        </View>
+
+        {/* Placeholder for search results or other content */}
+        {/* <View>...content...</View> */}
+
+        {/* Footer */}
+        <View style={MainStyle.footer}>
+          <TouchableOpacity style={MainStyle.logoutContainer} onPress={() => navigation.pop()}>
+            <Text style={MainStyle.logoutText}>Home</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.billContainer}>
-        <Text style={styles.billText}>Electricity Bill:</Text>
-        <Text style={styles.billText}>{electricityBill}</Text>
-      </View>
-      <View style={styles.billContainer}>
-        <Text style={styles.billText}>Water Bill:</Text>
-        <Text style={styles.billText}>{waterBill}</Text>
-      </View>
-    </View>
+    </ImageBackground>
   );
 };
 
+// Additional styles for the search bar
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  searchContainer: {
+    alignSelf: 'center',
+    marginTop: 20,
     marginBottom: 20,
   },
-  input: {
+  searchInput: {
+    width: 300,
     height: 40,
-    width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
     paddingHorizontal: 10,
-  },
-  billContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  billText: {
-    fontSize: 18,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    fontSize: 16,
   },
 });
 
