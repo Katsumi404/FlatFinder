@@ -107,9 +107,11 @@ function FetchListings({ searchQuery, serializableUser, locationPref, amenitiesP
                             </View>
                             <View style={SearchStyle.textContainer}>
                                 <Text style={SearchStyle.listItemText}>Price: £{doc.Price}</Text>
-                                <Text style={SearchStyle.listItemText}>Address: {doc.Address}</Text>
+                                <Text style={SearchStyle.listItemText}>Location: {doc.City}</Text>
+                                <Text style={SearchStyle.listItemText}>Address: {doc.Street}</Text>
                                 <Text style={SearchStyle.listItemText}>Availability: {doc.Availability}</Text>
                                 <Text style={SearchStyle.listItemText}>Rooms: {doc.Rooms}</Text>
+                                <Text style={SearchStyle.listItemText}>Amenities: {doc.Amenities}</Text>
                                 <Button
                                     title="Save listing"
                                     onPress={() => saveListing(doc.id)}
