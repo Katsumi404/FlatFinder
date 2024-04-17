@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:305766468407:ios:0a4e86346fd820b07768b2</string>
+	<key>DATABASE_URL</key>
+	<string>https://flatfinder-f1f62-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
